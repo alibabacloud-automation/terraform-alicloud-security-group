@@ -53,25 +53,26 @@ You can use this in your terraform template with the following steps.
 
 1. Adding a module resource to your template, e.g. main.tf
 
-       module "tf-security-group" {
-          source = "github.com/terraform-community-modules/terraform-alicloud-security-group"
 
-          alicloud_access_key = "${var.alicloud_access_key}"
-          alicloud_secret_key = "${var.alicloud_secret_key}"
-          region = "${var.region}"
+         module "tf-security-group" {
+            source = "github.com/alibaba/terraform-alicloud-security-group"
 
-          vpc_name = "my_module_vpc"
-          vpc_cidr = "10.16.0.0/12"
+            alicloud_access_key = "${var.alicloud_access_key}"
+            alicloud_secret_key = "${var.alicloud_secret_key}"
+            region = "${var.region}"
 
-          sg_name = "my_module_group"
-          rule_directions = ["ingress"]
-          ip_protocols = ["tcp", "tcp", "udp"]
-          policies = ["accept", "accept", "drop"]
-          port_ranges = ["80/80", "22/22", "8080/8080"]
-          priorities = [1, 2]
-          cidr_ips = ["100.20.10.24/10"]
-          source_security_group_ids = [var.source_security_group_id_1, var.source_security_group_id_2]
-        }
+            vpc_name = "my_module_vpc"
+            vpc_cidr = "10.16.0.0/12"
+
+            sg_name = "my_module_group"
+            rule_directions = ["ingress"]
+            ip_protocols = ["tcp", "tcp", "udp"]
+            policies = ["accept", "accept", "drop"]
+            port_ranges = ["80/80", "22/22", "8080/8080"]
+            priorities = [1, 2]
+            cidr_ips = ["100.20.10.24/10"]
+            source_security_group_ids = [var.source_security_group_id_1, var.source_security_group_id_2]
+         }
 
 2. Setting values for the following variables, either through terraform.tfvars or environment variables or -var arguments on the CLI
 
