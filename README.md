@@ -80,14 +80,15 @@ You can use this in your terraform template with the following steps.
 - alicloud_secret_key
 - region
 
-If the authorization object is the existing security groups, you need to input `source_security_group_ids`
+`NOTE`:If the authorization object is the existing security groups, you need to input `source_security_group_ids`
 
-Module Output Variables
------------------------
-
-- vpc_id - A new VPC ID
-- security_group_id - A new Security Group ID
 
 Authors
 -------
 Created and maintained by He Guimin(@xiaozhu36 heguimin36@163.com)
+
+Reference
+---------
+* [Terraform-Provider-Alicloud Github](https://github.com/alibaba/terraform-provider)
+* [Terraform-Provider-Alicloud Release](https://github.com/alibaba/terraform-provider/releases)
+* [Terraform-Provider-Alicloud Latest Docs](http://47.95.33.19:4567/docs/providers/alicloud/)
