@@ -1,15 +1,7 @@
 # common variables
-variable "alicloud_access_key" {
-  description = "The Alicloud Access Key ID to launch resources."
-  default = ""
-}
-variable "alicloud_secret_key" {
-  description = "The Alicloud Access Secret Key to launch resources."
-  default = ""
-}
 variable "region" {
   description = "The region to launch resources."
-  default = ""
+  default = "cn-hangzhou"
 }
 
 # VPC variables
