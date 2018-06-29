@@ -41,11 +41,10 @@ You can use this in your terraform template with the following steps.
             source_security_group_ids = [var.source_security_group_id_1, var.source_security_group_id_2]
          }
 
-2. Setting values for the following variables, either through terraform.tfvars or environment variables or -var arguments on the CLI
+2. Setting values for the following variables through environment variables:
 
-- alicloud_access_key
-- alicloud_secret_key
-- region
+    - ALICLOUD_ACCESS_KEY
+    - ALICLOUD_SECRET_KEY
 
 `NOTE`:If the authorization object is the existing security groups, you need to input `source_security_group_ids`
 
