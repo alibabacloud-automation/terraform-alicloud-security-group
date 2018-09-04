@@ -24,8 +24,6 @@ You can use this in your terraform template with the following steps.
          module "tf-security-group" {
             source = "alibaba/security-group/alicloud"
 
-            alicloud_access_key = "${var.alicloud_access_key}"
-            alicloud_secret_key = "${var.alicloud_secret_key}"
             region = "${var.region}"
 
             vpc_name = "my_module_vpc"
