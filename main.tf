@@ -16,7 +16,7 @@ resource "alicloud_security_group_rule" "rules_cidr" {
   policy            = "${element(var.policies, count.index)}"
   port_range        = "${element(var.port_ranges, count.index)}"
   priority          = "${element(var.priorities, count.index)}"
-  security_group_id = "${var.group_id == "" ? alicloud_security_group.group.id : var.group_id}"
+  security_group_id = "${var.group_id == "" ? alicloud_security_group.group[count.index].id : var.group_id}"
   cidr_ip           = "${element(var.cidr_ips, count.index)}"
 }
 
@@ -29,7 +29,7 @@ resource "alicloud_security_group_rule" "rules_group" {
   policy                     = "${element(var.policies, count.index)}"
   port_range                 = "${element(var.port_ranges, count.index)}"
   priority                   = "${element(var.priorities, count.index)}"
-  security_group_id          = "${var.group_id == "" ? alicloud_security_group.group.id : var.group_id}"
+  security_group_id          = "${var.group_id == "" ? alicloud_security_group.group[count.index].id : var.group_id}"
   source_security_group_id   = "${element(var.source_security_group_ids, count.index)}"
   source_group_owner_account = "${element(var.source_group_owner_accounts, count.index)}"
 }
