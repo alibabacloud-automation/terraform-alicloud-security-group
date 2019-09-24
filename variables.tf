@@ -1,3 +1,8 @@
+variable "region" {
+  description = "The region used to launch this module resources."
+  default     = ""
+}
+
 # VPC variables
 variable "vpc_id" {
   description = "The vpc id used to launch vswitch, security group and instance."
@@ -22,48 +27,49 @@ variable "group_description" {
 # Security Group Rules variables
 variable "rule_directions" {
   description = "The security group rules direction used to set one or more rules."
-  type        = "list"
+  type        = list(string)
   default     = ["ingress"]
 }
 
 variable "ip_protocols" {
   description = "The security group rules ip protocol used to set one or more rules."
-  type        = "list"
+  type        = list(string)
   default     = ["tcp", "tcp"]
 }
 
 variable "policies" {
   description = "The security group policy used to set one or more rules."
-  type        = "list"
+  type        = list(string)
   default     = ["accept"]
 }
 
 variable "port_ranges" {
   description = "The security group rules port range used to set one or more rules."
-  type        = "list"
+  type        = list(string)
   default     = ["-1/-1"]
 }
 
 variable "priorities" {
   description = "The security group rules priority used to set one or more rules."
-  type        = "list"
+  type        = list(string)
   default     = [1]
 }
 
 variable "cidr_ips" {
   description = "The security group rules cidr_ip used to set one or more rules."
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "source_security_group_ids" {
   description = "The source/destination security group ids used to set one or more rules."
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "source_group_owner_accounts" {
   description = "The source/destination security group owner accounts used to set one or more rules."
-  type        = "list"
+  type        = list(string)
   default     = [""]
 }
+
