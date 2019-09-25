@@ -1,6 +1,6 @@
 // Output the ID of the new VPC and Security Group created
 output "vpc_id" {
-  value = var.vpc_id
+  value = var.vpc_id == "" ? alicloud_vpc.vpc.0.id : var.vpc_id
 }
 
 output "security_group_id" {
