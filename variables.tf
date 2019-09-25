@@ -3,9 +3,24 @@ variable "region" {
   default     = ""
 }
 
+variable "this_module_name" {
+  default = "terraform-alicloud-security-group"
+}
+
 # VPC variables
+variable "vpc_name" {
+  description = "The vpc name used to create a new vpc when 'vpc_id' is not specified. Default to variable `this_module_name`"
+  default     = ""
+}
+
 variable "vpc_id" {
-  description = "The vpc id used to launch vswitch, security group and instance."
+  description = "A existing vpc id used to create security group."
+  default     = ""
+}
+
+variable "vpc_cidr" {
+  description = "The cidr block used to launch a new vpc when 'vpc_id' is not specified."
+  default     = "10.1.0.0/21"
 }
 
 # Security Group variables
@@ -15,12 +30,12 @@ variable "group_id" {
 }
 
 variable "group_name" {
-  description = "The security group name used to launch a new security group when 'group_id' is not specified."
-  default     = "TF_Security_Group"
+  description = "The security group name used to launch a new security group when 'group_id' is not specified. Default to `this_module_name`"
+  default     = ""
 }
 
 variable "group_description" {
-  description = "The security group descripton used to launch a new security group when 'group_id' is not specified."
+  description = "The security group descripton used to launch a new security group when 'group_id' is not specified. Default to TF_Security_Group."
   default     = "TF_Security_Group"
 }
 

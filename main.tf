@@ -4,11 +4,18 @@ provider "alicloud" {
   configuration_source = "terraform-alicloud-modules/security-group"
 }
 
+// If there is not specifying vpc_id, the module will launch a new vpc
+resource "alicloud_vpc" "vpc" {
+  count      = var.vpc_id == "" ? 1 : 0
+  cidr_block = var.vpc_cidr
+  name       = var.vpc_name == "" ? var.this_module_name : var.vpc_name
+}
+
 // Security Group Resource for Module
 resource "alicloud_security_group" "group" {
   count       = var.group_id == "" ? 1 : 0
-  name        = var.group_name
-  vpc_id      = var.vpc_id
+  name        = var.group_name == "" ? var.this_module_name : var.group_name
+  vpc_id      = var.vpc_id == "" ? alicloud_vpc.vpc.0.id : var.vpc_id
   description = var.group_description
 }
 
