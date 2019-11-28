@@ -3,9 +3,87 @@ variable "region" {
   default     = ""
 }
 
+variable "profile" {
+  description = "The profile name as set in the shared credentials file. If not set, it will be sourced from the ALICLOUD_PROFILE environment variable."
+  default     = ""
+}
+variable "shared_credentials_file" {
+  description = "This is the path to the shared credentials file. If this is not set and a profile is specified, $HOME/.aliyun/config.json will be used."
+  default     = ""
+}
+
+variable "skip_region_validation" {
+  description = "Skip static validation of region ID. Used by users of alternative AlibabaCloud-like APIs or users w/ access to regions that are not public (yet)."
+  default     = false
+}
+
+
+variable "create" {
+  description = "Whether to create security group and all rules"
+  type        = bool
+  default     = true
+}
+
 variable "this_module_name" {
   default = "terraform-alicloud-security-group"
 }
+
+##########
+# Ingress
+##########
+
+variable "ingress_rules" {
+  description = "List of ingress rules to create by name"
+  type        = list(string)
+  default     = []
+}
+
+variable "ingress_with_cidr_block" {
+  description = "List of ingress rules to create where 'cidr_blocks' is used"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "ingress_with_source_security_group_id" {
+  description = "List of ingress rules to create where 'source_security_group_id' is used"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "ingress_cidr_block" {
+  description = "IPv4 CIDR ranges to use on all ingress rules"
+  type        = string
+  default     = ""
+}
+
+#########
+# Egress
+#########
+variable "egress_rules" {
+  description = "List of egress rules to create by name"
+  type        = list(string)
+  default     = []
+}
+
+variable "egress_with_cidr_block" {
+  description = "List of egress rules to create where 'cidr_blocks' is used"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "egress_with_source_security_group_id" {
+  description = "List of egress rules to create where 'source_security_group_id' is used"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "egress_cidr_block" {
+  description = "List of IPv4 CIDR ranges to use on all egress rules"
+  type        = string
+  default     = "0.0.0.0/0"
+}
+
+
 
 # VPC variables
 variable "vpc_name" {
@@ -31,60 +109,16 @@ variable "group_id" {
 
 variable "group_name" {
   description = "The security group name used to launch a new security group when 'group_id' is not specified. Default to `this_module_name`"
-  default     = ""
-}
-
-variable "group_description" {
-  description = "The security group descripton used to launch a new security group when 'group_id' is not specified. Default to TF_Security_Group."
   default     = "TF_Security_Group"
 }
 
-# Security Group Rules variables
-variable "rule_directions" {
-  description = "The security group rules direction used to set one or more rules."
-  type        = list(string)
-  default     = ["ingress"]
+variable "group_description" {
+  description = "The security group descripton used to launch a new security group when 'group_id' is not specified. Default to `TF_Security_Group`."
+  default     = "TF_Security_Group"
 }
 
-variable "ip_protocols" {
-  description = "The security group rules ip protocol used to set one or more rules."
-  type        = list(string)
-  default     = ["tcp", "tcp"]
-}
-
-variable "policies" {
-  description = "The security group policy used to set one or more rules."
-  type        = list(string)
-  default     = ["accept"]
-}
-
-variable "port_ranges" {
-  description = "The security group rules port range used to set one or more rules."
-  type        = list(string)
-  default     = ["-1/-1"]
-}
-
-variable "priorities" {
+variable "priority" {
   description = "The security group rules priority used to set one or more rules."
-  type        = list(string)
-  default     = [1]
+  type        = number
+  default     = 1
 }
-
-variable "cidr_ips" {
-  description = "The security group rules cidr_ip used to set one or more rules."
-  type        = list(string)
-  default     = []
-}
-
-variable "source_security_group_ids" {
-  description = "The source/destination security group ids used to set one or more rules."
-  type        = list(string)
-  default     = []
-}
-
-variable "source_group_owner_accounts" {
-  description = "The source/destination security group owner accounts used to set one or more rules."
-  type        = list(string)
-  default     = [""]
-}
-
