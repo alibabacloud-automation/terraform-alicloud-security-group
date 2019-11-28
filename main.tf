@@ -1,18 +1,16 @@
 provider "alicloud" {
-  version              = ">=1.56.0"
-  region               = var.region != "" ? var.region : null
-  configuration_source = "terraform-alicloud-modules/security-group"
+  version                 = ">=1.56.0"
+  profile                 = var.profile != "" ? var.profile : null
+  shared_credentials_file = var.shared_credentials_file != "" ? var.shared_credentials_file : null
+  region                  = var.region != "" ? var.region : null
+  skip_region_validation  = var.skip_region_validation
+  configuration_source    = "terraform-alicloud-modules/security-group"
 }
 
 // If there is not specifying vpc_id, the module will launch a new vpc
-resource "alicloud_vpc" "vpc" {
-  count      = var.vpc_id == "" ? 1 : 0
-  cidr_block = var.vpc_cidr
-  name       = var.vpc_name == "" ? var.this_module_name : var.vpc_name
-}
 
 // Security Group Resource for Module
-resource "alicloud_security_group" "group" {
+resource "alicloud_security_group" "this" {
   count       = var.group_id == "" ? 1 : 0
   name        = var.group_name == "" ? var.this_module_name : var.group_name
   vpc_id      = var.vpc_id == "" ? alicloud_vpc.vpc.0.id : var.vpc_id
@@ -20,30 +18,51 @@ resource "alicloud_security_group" "group" {
 }
 
 // Security Group Resource for Module
-resource "alicloud_security_group_rule" "rules_cidr" {
-  count = length(var.cidr_ips) > 0 ? length(var.ip_protocols) : 0
 
-  type              = var.rule_directions[count.index]
-  ip_protocol       = var.ip_protocols[count.index]
+resource "alicloud_security_group_rule" "ingress_rules_cidr" {
+  count             = var.create ? length(var.ingress_with_cidr_block) : 0
+  type              = "ingress"
+  ip_protocol       = lookup(var.ingress_with_cidr_block[count.index], "protocol", var.rules[lookup(var.ingress_with_cidr_block[count.index], "rule", "_")][2], )
   nic_type          = "intranet"
-  policy            = var.policies[count.index]
-  port_range        = var.port_ranges[count.index]
-  priority          = var.priorities[count.index]
-  security_group_id = var.group_id == "" ? alicloud_security_group.group[0].id : var.group_id
-  cidr_ip           = var.cidr_ips[count.index]
+  port_range        = "${lookup(var.ingress_with_cidr_block[count.index], "from_port", var.rules[lookup(var.ingress_with_cidr_block[count.index], "rule", "_")][0], )}/${lookup(var.ingress_with_cidr_block[count.index], "to_port", var.rules[lookup(var.ingress_with_cidr_block[count.index], "rule", "_")][1], )}"
+  security_group_id = var.group_id == "" ? alicloud_security_group.this[0].id : var.group_id
+  cidr_ip           = lookup(var.ingress_with_cidr_block[count.index], "cidr_block", var.ingress_cidr_block)
+  priority          = var.priority
+  description       = "An Security group rule came from terraform-alicloud-modules/security-group"
 }
 
-resource "alicloud_security_group_rule" "rules_group" {
-  count = length(var.source_security_group_ids) > 0 ? length(var.ip_protocols) : 0
-
-  type                       = var.rule_directions[count.index]
-  ip_protocol                = var.ip_protocols[count.index]
-  nic_type                   = "intranet"
-  policy                     = var.policies[count.index]
-  port_range                 = var.port_ranges[count.index]
-  priority                   = var.priorities[count.index]
-  security_group_id          = var.group_id == "" ? alicloud_security_group.group[0].id : var.group_id
-  source_security_group_id   = var.source_security_group_ids[count.index]
-  source_group_owner_account = var.source_group_owner_accounts[count.index]
+resource "alicloud_security_group_rule" "ingress_rules_group" {
+  count                    = var.create ? length(var.ingress_with_source_security_group_id) : 0
+  type                     = "ingress"
+  ip_protocol              = lookup(var.ingress_with_source_security_group_id[count.index], "protocol", var.rules[lookup(var.ingress_with_source_security_group_id[count.index], "rule", "_", )][2], )
+  nic_type                 = "intranet"
+  port_range               = "${lookup(var.ingress_with_source_security_group_id[count.index], "from_port", var.rules[lookup(var.ingress_with_source_security_group_id[count.index], "rule", "_", )][0], )}/${lookup(var.ingress_with_source_security_group_id[count.index], "to_port", var.rules[lookup(var.ingress_with_source_security_group_id[count.index], "rule", "_", )][1], )}"
+  security_group_id        = var.group_id == "" ? alicloud_security_group.this[0].id : var.group_id
+  source_security_group_id = var.ingress_with_source_security_group_id[count.index]["source_security_group_id"]
+  priority                 = var.priority
+  description              = "An Security group rule came from terraform-alicloud-modules/security-group"
 }
 
+resource "alicloud_security_group_rule" "egress_rules_cidr" {
+  count             = var.create ? length(var.egress_with_cidr_block) : 0
+  type              = "egress"
+  ip_protocol       = lookup(var.egress_with_cidr_block[count.index], "protocol", var.rules[lookup(var.egress_with_cidr_block[count.index], "rule", "_")][2], )
+  nic_type          = "intranet"
+  port_range        = "${lookup(var.egress_with_cidr_block[count.index], "from_port", var.rules[lookup(var.egress_with_cidr_block[count.index], "rule", "_")][0], )}/${lookup(var.egress_with_cidr_block[count.index], "to_port", var.rules[lookup(var.egress_with_cidr_block[count.index], "rule", "_")][1], )}"
+  security_group_id = var.group_id == "" ? alicloud_security_group.this[0].id : var.group_id
+  cidr_ip           = lookup(var.egress_with_cidr_block[count.index], "cidr_block", var.egress_cidr_block)
+  priority          = var.priority
+  description       = "An Security group rule came from terraform-alicloud-modules/security-group"
+}
+
+resource "alicloud_security_group_rule" "egress_rules_group" {
+  count                    = var.create ? length(var.egress_with_source_security_group_id) : 0
+  type                     = "egress"
+  ip_protocol              = lookup(var.egress_with_source_security_group_id[count.index], "protocol", var.rules[lookup(var.egress_with_source_security_group_id[count.index], "rule", "_", )][2], )
+  nic_type                 = "intranet"
+  port_range               = "${lookup(var.egress_with_source_security_group_id[count.index], "from_port", var.rules[lookup(var.egress_with_source_security_group_id[count.index], "rule", "_", )][0], )}/${lookup(var.egress_with_source_security_group_id[count.index], "to_port", var.rules[lookup(var.egress_with_source_security_group_id[count.index], "rule", "_", )][1], )}"
+  security_group_id        = var.group_id == "" ? alicloud_security_group.this[0].id : var.group_id
+  source_security_group_id = var.egress_with_source_security_group_id[count.index]["source_security_group_id"]
+  priority                 = var.priority
+  description              = "An Security group rule came from terraform-alicloud-modules/security-group"
+}
