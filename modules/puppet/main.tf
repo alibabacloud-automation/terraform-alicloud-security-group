@@ -1,11 +1,22 @@
 module "sg" {
   source = "../../"
 
-  create            = var.create
-  group_name        = var.group_name
-  group_description = var.group_description
-  vpc_id            = var.vpc_id
-  priority          = var.priority
+  region                  = var.region
+  profile                 = var.profile
+  shared_credentials_file = var.shared_credentials_file
+  skip_region_validation  = var.skip_region_validation
+  create                  = var.create
+  create_vpc              = var.create_vpc
+  default_protocol        = var.default_protocol
+  this_module_name        = var.this_module_name
+  group_name              = var.group_name
+  group_id                = var.group_id
+  group_description       = var.group_description
+  vpc_id                  = var.vpc_id
+  vpc_name                = var.vpc_name
+  vpc_cidr                = var.vpc_cidr
+  priority                = var.priority
+
 
   ##########
   # Ingress
@@ -22,7 +33,14 @@ module "sg" {
   # Default ingress CIDR blocks
   ingress_cidr_block = var.ingress_cidr_block
 
+  # The ingress port list
+  ingress_ports = var.ingress_ports
 
+  # The ingress cidr list
+  ingress_cidrs = var.ingress_cidrs
+
+  # The ingress port to create rule with port list
+  ingress_port_with_cidrs = var.ingress_port_with_cidrs
   #########
   # Egress
   #########
@@ -40,4 +58,12 @@ module "sg" {
   # Default egress CIDR blocks
   egress_cidr_block = var.egress_cidr_block
 
+  # The egress port list
+  egress_ports = var.egress_ports
+
+  # The egress cidr list
+  egress_cidrs = var.egress_cidrs
+
+  # The egress port to create rule with port list
+  egress_port_with_cidrs = var.egress_port_with_cidrs
 }

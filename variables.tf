@@ -24,6 +24,17 @@ variable "create" {
   default     = true
 }
 
+variable "create_vpc" {
+  description = "Whether to create a new vpc used to create security group and rules."
+  type        = bool
+  default     = false
+}
+
+variable "default_protocol" {
+  description = "The default protocol used to create rules, supported values: 'tcp', 'udp', 'gre', 'icmp' and 'all'."
+  default     = "all"
+}
+
 variable "this_module_name" {
   default = "terraform-alicloud-security-group"
 }
@@ -56,6 +67,24 @@ variable "ingress_cidr_block" {
   default     = ""
 }
 
+variable "ingress_ports" {
+  description = "The port list to use on all ingress ports rules, from port and to port is same in this way."
+  type        = list(number)
+  default     = []
+}
+
+variable "ingress_cidrs" {
+  description = "The IPv4 CIDR ranges list to use on ingress cidrs rules"
+  type        = list(string)
+  default     = []
+}
+
+variable "ingress_port_with_cidrs" {
+  description = "IPv4 CIDR ranges to use on ingress cidrs rules, from port and to port is same in this way."
+  type        = number
+  default     = 0
+}
+
 #########
 # Egress
 #########
@@ -78,9 +107,27 @@ variable "egress_with_source_security_group_id" {
 }
 
 variable "egress_cidr_block" {
-  description = "List of IPv4 CIDR ranges to use on all egress rules"
+  description = "IPv4 CIDR ranges to use on all egress rules"
   type        = string
   default     = "0.0.0.0/0"
+}
+
+variable "egress_ports" {
+  description = "The port list to use on all egress ports rules, from port and to port is same in this way."
+  type        = list(number)
+  default     = []
+}
+
+variable "egress_cidrs" {
+  description = "The IPv4 CIDR ranges list to use on egress cidrs rules"
+  type        = list(string)
+  default     = []
+}
+
+variable "egress_port_with_cidrs" {
+  description = "IPv4 CIDR ranges to use on egress cidrs rules, from port and to port is same in this way."
+  type        = number
+  default     = 0
 }
 
 
@@ -109,7 +156,7 @@ variable "group_id" {
 
 variable "group_name" {
   description = "The security group name used to launch a new security group when 'group_id' is not specified. Default to `this_module_name`"
-  default     = "TF_Security_Group"
+  default     = ""
 }
 
 variable "group_description" {
