@@ -24,7 +24,7 @@ resource "alicloud_security_group" "group" {
 # Security group which is used as an argument in complete-sg
 #############################################################
 module "main_sg" {
-  source = "../../"
+  source = "alibaba/security-group/alicloud"
 
   vpc_id = module.vpc.vpc_id
 
@@ -36,7 +36,7 @@ module "main_sg" {
 # Security group with complete set of arguments
 ################################################
 module "complete_sg" {
-  source = "../../"
+  source = "alibaba/security-group/alicloud"
 
   vpc_id = module.vpc.vpc_id
 
@@ -117,7 +117,7 @@ module "complete_sg" {
 # Security group with IPv4 sets of arguments
 ######################################################
 module "ipv4_example" {
-  source = "../../"
+  source = "alibaba/security-group/alicloud"
 
   vpc_id = module.vpc.vpc_id
 
@@ -146,7 +146,7 @@ module "ipv4_example" {
 # Security group with IPv4 sets of arguments
 ######################################################
 module "cidrs_example" {
-  source = "../../"
+  source = "alibaba/security-group/alicloud"
 
   vpc_id = module.vpc.vpc_id
 
@@ -157,7 +157,7 @@ module "cidrs_example" {
 }
 
 module "ports_example" {
-  source = "../../"
+  source = "alibaba/security-group/alicloud"
 
   vpc_id = module.vpc.vpc_id
 
