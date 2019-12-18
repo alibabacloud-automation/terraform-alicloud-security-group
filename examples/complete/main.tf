@@ -3,10 +3,11 @@
 ##################################################
 # VPC which is used as an argument in complete-sg
 ##################################################
+
 module "vpc" {
   source       = "alibaba/vpc/alicloud"
-  vpc_name     = "my_terratest_vpc"
-  vswitch_name = "my_terratest_vswitch"
+  vpc_name     = "my_module_vpc"
+  vswitch_name = "my_module_vswitch"
   vswitch_cidrs = [
     "172.16.1.0/24"
   ]
@@ -39,19 +40,11 @@ module "complete_sg" {
 
   vpc_id = module.vpc.vpc_id
 
-  # Default CIDR blocks, which will be used for all ingress rules in this module. Typically these are CIDR blocks of the VPC.
-  # If this is not specified then no CIDR blocks will be used.
+
   ingress_cidr_block = "10.10.0.0/16"
 
-  # Prefix list ids to use in all ingress rules in this module.
-  # ingress_prefix_list_ids = ["pl-123456"]
-  # Open for all CIDRs defined in ingress_cidr_blocks
-  ingress_rules = [
-  "https-443-tcp"]
+  ingress_rules = ["https-443-tcp"]
 
-  # Use computed value here (eg, `${module...}`). Plain string is not a real use-case for this argument.
-
-  # Open to CIDRs blocks (rule or from_port+to_port+protocol)
   ingress_with_cidr_block = [
     {
       rule       = "postgresql-tcp"
@@ -69,7 +62,6 @@ module "complete_sg" {
     },
   ]
 
-  # Open for security group id (rule or from_port+to_port+protocol)
   ingress_with_source_security_group_id = [
     {
       rule                     = "mysql-tcp"
@@ -83,17 +75,11 @@ module "complete_sg" {
     },
   ]
 
-  # Default CIDR blocks, which will be used for all egress rules in this module. Typically these are CIDR blocks of the VPC.
-  # If this is not specified then no CIDR blocks will be used.
   egress_cidr_block = "10.10.0.0/16"
 
-  # Prefix list ids to use in all egress rules in this module.
-  # egress_prefix_list_ids = ["pl-123456"]
-  # Open for all CIDRs defined in egress_cidr_blocks
   egress_rules = [
   "http-80-tcp"]
 
-  # Open to CIDRs blocks (rule or from_port+to_port+protocol)
   egress_with_cidr_block = [
     {
       rule       = "postgresql-tcp"
@@ -111,7 +97,6 @@ module "complete_sg" {
     },
   ]
 
-  # Open for security group id (rule or from_port+to_port+protocol)
   egress_with_source_security_group_id = [
     {
       rule                     = "mysql-tcp"
@@ -129,7 +114,7 @@ module "complete_sg" {
 
 
 ######################################################
-# Security group with IPv4 and IPv6 sets of arguments
+# Security group with IPv4 sets of arguments
 ######################################################
 module "ipv4_example" {
   source = "../../"
@@ -155,4 +140,29 @@ module "ipv4_example" {
   ]
 
   ingress_cidr_block = "10.10.0.0/16"
+}
+
+######################################################
+# Security group with IPv4 sets of arguments
+######################################################
+module "cidrs_example" {
+  source = "../../"
+
+  vpc_id = module.vpc.vpc_id
+
+  ingress_cidrs           = ["2.2.2.2/32", "30.30.30.30/32", "10.10.0.0/20"]
+  egress_cidrs            = ["2.2.2.2/32", "30.30.30.30/32", "10.10.0.0/20"]
+  ingress_port_with_cidrs = 8080
+  egress_port_with_cidrs  = 8090
+}
+
+module "ports_example" {
+  source = "../../"
+
+  vpc_id = module.vpc.vpc_id
+
+  ingress_ports      = [10, 20, 30]
+  egress_ports       = [40, 50, 60]
+  ingress_cidr_block = "2.2.2.2/32"
+  egress_cidr_block  = "30.30.30.30/32"
 }

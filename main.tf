@@ -19,6 +19,18 @@ resource "alicloud_security_group" "this" {
 
 // Security Group Resource for Module
 
+resource "alicloud_security_group_rule" "ingress_rules" {
+  count             = var.create ? length(var.ingress_rules) : 0
+  type              = "ingress"
+  ip_protocol       = var.rules[var.ingress_rules[count.index]][2]
+  nic_type          = "intranet"
+  port_range        = "${var.rules[var.ingress_rules[count.index]][0]}/${var.rules[var.ingress_rules[count.index]][1]}"
+  security_group_id = var.group_id == "" ? alicloud_security_group.this[0].id : var.group_id
+  cidr_ip           = var.ingress_cidr_block
+  priority          = var.priority
+  description       = "An Security group rule came from terraform-alicloud-modules/security-group"
+}
+
 resource "alicloud_security_group_rule" "ingress_rules_cidr" {
   count             = var.create ? length(var.ingress_with_cidr_block) : 0
   type              = "ingress"
@@ -43,6 +55,42 @@ resource "alicloud_security_group_rule" "ingress_rules_group" {
   description              = "An Security group rule came from terraform-alicloud-modules/security-group"
 }
 
+resource "alicloud_security_group_rule" "ingress_ports" {
+  count             = var.create ? length(var.ingress_ports) : 0
+  type              = "ingress"
+  ip_protocol       = var.default_protocol
+  nic_type          = "intranet"
+  port_range        = "${var.ingress_ports[count.index]}/${var.ingress_ports[count.index]}"
+  security_group_id = var.group_id == "" ? alicloud_security_group.this[0].id : var.group_id
+  cidr_ip           = var.ingress_cidr_block
+  priority          = var.priority
+  description       = "An Security group rule came from terraform-alicloud-modules/security-group"
+}
+
+resource "alicloud_security_group_rule" "ingress_cidrs" {
+  count             = var.create ? length(var.ingress_cidrs) : 0
+  type              = "ingress"
+  ip_protocol       = var.default_protocol
+  nic_type          = "intranet"
+  port_range        = "${var.ingress_port_with_cidrs}/${var.ingress_port_with_cidrs}"
+  security_group_id = var.group_id == "" ? alicloud_security_group.this[0].id : var.group_id
+  cidr_ip           = var.ingress_cidrs[count.index]
+  priority          = var.priority
+  description       = "An Security group rule came from terraform-alicloud-modules/security-group"
+}
+
+resource "alicloud_security_group_rule" "egress_rules" {
+  count             = var.create ? length(var.egress_rules) : 0
+  type              = "egress"
+  ip_protocol       = var.rules[var.egress_rules[count.index]][2]
+  nic_type          = "intranet"
+  port_range        = "${var.rules[var.egress_rules[count.index]][0]}/${var.rules[var.egress_rules[count.index]][1]}"
+  security_group_id = var.group_id == "" ? alicloud_security_group.this[0].id : var.group_id
+  cidr_ip           = var.egress_cidr_block
+  priority          = var.priority
+  description       = "An Security group rule came from terraform-alicloud-modules/security-group"
+}
+
 resource "alicloud_security_group_rule" "egress_rules_cidr" {
   count             = var.create ? length(var.egress_with_cidr_block) : 0
   type              = "egress"
@@ -65,4 +113,28 @@ resource "alicloud_security_group_rule" "egress_rules_group" {
   source_security_group_id = var.egress_with_source_security_group_id[count.index]["source_security_group_id"]
   priority                 = var.priority
   description              = "An Security group rule came from terraform-alicloud-modules/security-group"
+}
+
+resource "alicloud_security_group_rule" "egress_ports" {
+  count             = var.create ? length(var.egress_ports) : 0
+  type              = "egress"
+  ip_protocol       = var.default_protocol
+  nic_type          = "intranet"
+  port_range        = "${var.egress_ports[count.index]}/${var.egress_ports[count.index]}"
+  security_group_id = var.group_id == "" ? alicloud_security_group.this[0].id : var.group_id
+  cidr_ip           = var.egress_cidr_block
+  priority          = var.priority
+  description       = "An Security group rule came from terraform-alicloud-modules/security-group"
+}
+
+resource "alicloud_security_group_rule" "egress_cidrs" {
+  count             = var.create ? length(var.egress_cidrs) : 0
+  type              = "egress"
+  ip_protocol       = var.default_protocol
+  nic_type          = "intranet"
+  port_range        = "${var.egress_port_with_cidrs}/${var.egress_port_with_cidrs}"
+  security_group_id = var.group_id == "" ? alicloud_security_group.this[0].id : var.group_id
+  cidr_ip           = var.egress_cidrs[count.index]
+  priority          = var.priority
+  description       = "An Security group rule came from terraform-alicloud-modules/security-group"
 }
