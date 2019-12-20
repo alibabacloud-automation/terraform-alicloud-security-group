@@ -6,16 +6,11 @@ module "sg" {
   shared_credentials_file = var.shared_credentials_file
   skip_region_validation  = var.skip_region_validation
   create                  = var.create
-  create_vpc              = var.create_vpc
-  default_protocol        = var.default_protocol
-  this_module_name        = var.this_module_name
-  group_name              = var.group_name
-  group_id                = var.group_id
-  group_description       = var.group_description
   vpc_id                  = var.vpc_id
-  vpc_name                = var.vpc_name
-  vpc_cidr                = var.vpc_cidr
-  priority                = var.priority
+  name                    = var.name
+  description             = var.description
+  existing_group_id       = var.existing_group_id
+  tags                    = var.tags
 
 
   ##########
@@ -27,43 +22,54 @@ module "sg" {
   # Open to IPv4 cidr blocks
   ingress_with_cidr_block = var.ingress_with_cidr_block
 
+  # Open to IPv4 cidr blocks with a cidr block list
+  ingress_with_cidr_blocks = var.ingress_with_cidr_blocks
+
   # Open for security group id
   ingress_with_source_security_group_id = var.ingress_with_source_security_group_id
 
-  # Default ingress CIDR blocks
-  ingress_cidr_block = var.ingress_cidr_block
-
   # The ingress port list
-  ingress_ports = var.ingress_ports
+  ingress_with_ports = var.ingress_with_ports
 
-  # The ingress cidr list
-  ingress_cidrs = var.ingress_cidrs
+  # A protocol is used when setting `ingress_with_ports`
+  protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
 
-  # The ingress port to create rule with port list
-  ingress_port_with_cidrs = var.ingress_port_with_cidrs
+  # The IPv4 CIDR ranges list to use on ingress cidrs rules.
+  ingress_cidr_blocks = var.ingress_cidr_blocks
+
+  # A priority is used when setting `ingress_rules`.
+  priority_for_ingress_rules = var.priority_for_ingress_rules
+
+  # A default ingress priority.
+  default_ingress_priority = var.default_ingress_priority
+
   #########
   # Egress
   #########
   # Rules by names - open for default CIDR
   egress_rules = sort(compact(distinct(concat(var.auto_egress_rules, var.egress_rules, [""]))))
 
-  # Open for self
-
   # Open to IPv4 cidr blocks
   egress_with_cidr_block = var.egress_with_cidr_block
+
+  # Open to IPv4 cidr blocks with a cidr block list
+  egress_with_cidr_blocks = var.egress_with_cidr_blocks
 
   # Open for security group id
   egress_with_source_security_group_id = var.egress_with_source_security_group_id
 
-  # Default egress CIDR blocks
-  egress_cidr_block = var.egress_cidr_block
-
   # The egress port list
-  egress_ports = var.egress_ports
+  egress_with_ports = var.egress_with_ports
 
-  # The egress cidr list
-  egress_cidrs = var.egress_cidrs
+  # A protocol is used when setting `egress_with_ports`
+  protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
 
-  # The egress port to create rule with port list
-  egress_port_with_cidrs = var.egress_port_with_cidrs
+  # The IPv4 CIDR ranges list to use on egress cidrs rules.
+  egress_cidr_blocks = var.egress_cidr_blocks
+
+  # A priority is used when setting `egress_rules`.
+  priority_for_egress_rules = var.priority_for_egress_rules
+
+  # A default egress priority.
+  default_egress_priority = var.default_egress_priority
 }

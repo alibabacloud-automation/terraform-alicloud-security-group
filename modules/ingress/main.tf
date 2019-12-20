@@ -1,6 +1,6 @@
 // Security Group Resource for Module
 resource "alicloud_security_group_rule" "ingress_rules" {
-  count             = var.group_id != "" && var.ingress_cidr_block != "" ? length(var.ingress_rules) : 0
+  count             = var.ingress_cidr_block != "" ? length(var.ingress_rules) : 0
   type              = "ingress"
   ip_protocol       = var.rules[var.ingress_rules[count.index]][2]
   nic_type          = "intranet"
@@ -12,7 +12,7 @@ resource "alicloud_security_group_rule" "ingress_rules" {
 }
 
 resource "alicloud_security_group_rule" "ingress_with_cidr_block" {
-  count             = var.group_id != "" ? length(var.ingress_with_cidr_block) : 0
+  count             = length(var.ingress_with_cidr_block)
   type              = "ingress"
   ip_protocol       = lookup(var.ingress_with_cidr_block[count.index], "protocol", var.rules[lookup(var.ingress_with_cidr_block[count.index], "rule", "_")][2], )
   nic_type          = "intranet"
@@ -24,7 +24,7 @@ resource "alicloud_security_group_rule" "ingress_with_cidr_block" {
 }
 
 resource "alicloud_security_group_rule" "ingress_with_cidr_blocks" {
-  count             = var.group_id != "" && var.ingress_cidr_block != "" ? length(var.ingress_with_cidr_blocks) : 0
+  count             = var.ingress_cidr_block != "" ? length(var.ingress_with_cidr_blocks) : 0
   type              = "ingress"
   ip_protocol       = lookup(var.ingress_with_cidr_blocks[count.index], "protocol", var.rules[lookup(var.ingress_with_cidr_blocks[count.index], "rule", "_")][2], )
   nic_type          = "intranet"
@@ -36,7 +36,7 @@ resource "alicloud_security_group_rule" "ingress_with_cidr_blocks" {
 }
 
 resource "alicloud_security_group_rule" "ingress_with_source_security_group_id" {
-  count                    = var.group_id != "" ? length(var.ingress_with_source_security_group_id) : 0
+  count                    = length(var.ingress_with_source_security_group_id)
   type                     = "ingress"
   ip_protocol              = lookup(var.ingress_with_source_security_group_id[count.index], "protocol", var.rules[lookup(var.ingress_with_source_security_group_id[count.index], "rule", "_", )][2], )
   nic_type                 = "intranet"
@@ -48,7 +48,7 @@ resource "alicloud_security_group_rule" "ingress_with_source_security_group_id" 
 }
 
 resource "alicloud_security_group_rule" "ingress_with_ports" {
-  count             = var.group_id != "" && var.ingress_cidr_block != "" ? length(var.ingress_with_ports) : 0
+  count             = var.ingress_cidr_block != "" ? length(var.ingress_with_ports) : 0
   type              = "ingress"
   ip_protocol       = var.protocol_for_ingress_with_ports
   nic_type          = "intranet"
