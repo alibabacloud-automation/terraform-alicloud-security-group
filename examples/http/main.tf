@@ -26,11 +26,9 @@ resource "alicloud_security_group" "group" {
 # HTTP
 #######
 module "http_sg" {
-  source             = "alibaba/security-group/alicloud/modules/http-80"
-  group_name         = "http-sg"
-  group_description  = "Security group with HTTP ports open for everybody (IPv4 CIDR), egress ports are all world open"
-  vpc_id             = module.vpc.vpc_id
-  ingress_cidr_block = "0.0.0.0/0"
+  source              = "alibaba/security-group/alicloud/modules/http-80"
+  vpc_id              = module.vpc.vpc_id
+  ingress_cidr_blocks = ["0.0.0.0/0"]
 }
 
 #####################
@@ -39,11 +37,9 @@ module "http_sg" {
 module "http_mysql_1_sg" {
   source = "alibaba/security-group/alicloud/modules/http-80"
 
-  group_name        = "http-mysql-1"
-  group_description = "Security group with HTTP and MySQL ports open for everybody (IPv4 CIDR)"
-  vpc_id            = module.vpc.vpc_id
+  vpc_id = module.vpc.vpc_id
 
-  ingress_cidr_block = "0.0.0.0/0"
+  ingress_cidr_blocks = ["0.0.0.0/0"]
 
   # Add MySQL rules
   ingress_rules = ["mysql-tcp"]
@@ -56,15 +52,13 @@ module "http_mysql_1_sg" {
 module "http_mysql_2_sg" {
   source = "alibaba/security-group/alicloud/modules/http-80"
 
-  group_name        = "http-mysql-2"
-  group_description = "Security group with HTTP and MySQL ports open within current VPC"
-  vpc_id            = module.vpc.vpc_id
+  vpc_id = module.vpc.vpc_id
 
   # Add mysql rules
   ingress_rules = ["mysql-tcp"]
 
   # Allow ingress rules to be accessed only within current VPC
-  ingress_cidr_block = module.vpc.cidr_block
+  ingress_cidr_blocks = [module.vpc.cidr_block]
 }
 
 ###########################
@@ -78,12 +72,12 @@ module "http_with_egress_minimal_sg" {
   vpc_id            = module.vpc.vpc_id
 
   # Allow ingress rules to be accessed only within current VPC
-  ingress_cidr_block = module.vpc.cidr_block
+  ingress_cidr_blocks = [module.vpc.cidr_block]
 
   # Allow all rules for all protocols
   egress_rules = ["http-80-tcp"]
   # Allow egress rules to access anything (empty list means everything)
-  egress_cidr_block = "10.10.10.0/28"
+  egress_cidr_blocks = ["10.10.10.0/28"]
 }
 
 ###########################
@@ -92,16 +86,14 @@ module "http_with_egress_minimal_sg" {
 module "http_with_egress_sg" {
   source = "alibaba/security-group/alicloud/modules/http-80"
 
-  group_name        = "http-with-egress"
-  group_description = "Security group with HTTP ports open within current VPC, and allow egress access just to small subnet"
-  vpc_id            = module.vpc.vpc_id
+  vpc_id = module.vpc.vpc_id
 
   # Add mysql rules
   ingress_rules = ["mysql-tcp"]
 
   # Allow ingress rules to be accessed only within current VPC
-  ingress_cidr_block = module.vpc.cidr_block
+  ingress_cidr_blocks = [module.vpc.cidr_block]
 
   # Allow egress rules to access anything (empty list means everything)
-  egress_cidr_block = "10.10.10.0/28"
+  egress_cidr_blocks = ["10.10.10.0/28"]
 }

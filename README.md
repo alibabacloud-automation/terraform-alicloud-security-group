@@ -22,70 +22,68 @@ You can use this in your terraform template with the following steps.
 
     ```hcl
     module "tf-security-group" {
-        source = "alibaba/security-group/alicloud"
-
-        vpc_id = module.vpc.vpc_id       
-        ingress_cidr_block = "10.10.0.0/16"
-        ingress_rules = ["https-443-tcp"]
-        ingress_with_cidr_block = [
-           {
-             rule       = "postgresql-tcp"
-             cidr_block = "2.2.2.2/32"
-           },
-           {
-             rule       = "postgresql-tcp"
-             cidr_block = "30.30.30.30/32"
-           },
-           {
-             from_port  = 10
-             to_port    = 20
-             protocol   = "tcp"
-             cidr_block = "10.10.0.0/20"
-           },
-        ]
-       
-        ingress_with_source_security_group_id = [
-           {
-             rule                     = "mysql-tcp"
-             source_security_group_id = alicloud_security_group.group.id
-           },
-           {
-             from_port                = 10
-             to_port                  = 10
-             protocol                 = "tcp"
-             source_security_group_id = alicloud_security_group.group.id
-           },
-        ]
-        egress_cidr_block = "10.10.0.0/16"
-        egress_rules = ["http-80-tcp"]
-        egress_with_cidr_block = [
-           {
-             rule       = "postgresql-tcp"
-             cidr_block = "2.2.2.2/32"
-           },
-           {
-             rule       = "https-443-tcp"
-             cidr_block = "30.30.30.30/32"
-           },
-           {
-             from_port  = 10
-             to_port    = 20
-             protocol   = "tcp"
-             cidr_block = "10.10.0.0/20"
-           },
-        ]
-        egress_with_source_security_group_id = [
-           {
-             rule                     = "mysql-tcp"
-             source_security_group_id = alicloud_security_group.group.id
-           },
-           {
-             from_port                = 10
-             to_port                  = 10
-             protocol                 = "tcp"
-             source_security_group_id = alicloud_security_group.group.id
-           },
-        ]
+      source              = "alibaba/security-group/alicloud"
+      vpc_id              = module.vpc.vpc_id
+      ingress_cidr_blocks = ["10.10.0.0/16"]
+      ingress_rules       = ["https-443-tcp"]
+      ingress_with_cidr_block = [
+        {
+          rule       = "postgresql-tcp"
+          cidr_block = "2.2.2.2/32"
+        },
+        {
+          rule       = "postgresql-tcp"
+          cidr_block = "30.30.30.30/32"
+        },
+        {
+          from_port  = 10
+          to_port    = 20
+          protocol   = "tcp"
+          cidr_block = "10.10.0.0/20"
+        },
+      ]
+      ingress_with_source_security_group_id = [
+        {
+          rule                     = "mysql-tcp"
+          source_security_group_id = alicloud_security_group.group.id
+        },
+        {
+          from_port                = 10
+          to_port                  = 10
+          protocol                 = "tcp"
+          source_security_group_id = alicloud_security_group.group.id
+        },
+      ]
+      egress_cidr_blocks = ["10.10.0.0/16"]
+      egress_rules       = ["http-80-tcp"]
+      egress_with_cidr_block = [
+        {
+          rule       = "postgresql-tcp"
+          cidr_block = "2.2.2.2/32"
+        },
+        {
+          rule       = "https-443-tcp"
+          cidr_block = "30.30.30.30/32"
+        },
+        {
+          from_port  = 10
+          to_port    = 20
+          protocol   = "tcp"
+          cidr_block = "10.10.0.0/20"
+        },
+      ]
+      egress_with_source_security_group_id = [
+        {
+          rule                     = "mysql-tcp"
+          source_security_group_id = alicloud_security_group.group.id
+        },
+        {
+          from_port                = 10
+          to_port                  = 10
+          protocol                 = "tcp"
+          source_security_group_id = alicloud_security_group.group.id
+        },
+      ]
     }
     ```
 
@@ -184,26 +182,26 @@ This module can create Security Group and several Rules.
 
 1. Create ingress and egress rules with field cidr_block and rule which specified in rules.tf:
     ```hcl
-    ingress_cidr_block = "10.10.0.0/16"
-    ingress_rules      = ["https-443-tcp"]
-    egress_cidr_block  = "10.10.0.0/16"
-    egress_rules       = ["http-80-tcp"]
+    ingress_cidr_blocks = ["10.10.0.0/16"]
+    ingress_rules       = ["https-443-tcp"]
+    egress_cidr_blocks  = ["10.10.0.0/16"]
+    egress_rules        = ["http-80-tcp"]
     ```
     
 1. Create ingress and egress rules with field ingress_cidrs/egress_cidrs and default port:
     ```hcl
-    ingress_cidrs           = ["2.2.2.2/32", "30.30.30.30/32", "10.10.0.0/20"]
-    egress_cidrs            = ["2.2.2.2/32", "30.30.30.30/32", "10.10.0.0/20"]
-    ingress_port_with_cidrs = 8080
-    egress_port_with_cidrs  = 8090
+    ingress_cidr_blocks = ["2.2.2.2/32", "30.30.30.30/32", "10.10.0.0/20"]
+    egress_cidr_blocks  = ["2.2.2.2/32", "30.30.30.30/32", "10.10.0.0/20"]
+    ingress_rules       = ["https-443-tcp"]
+    egress_rules        = ["https-443-tcp"]
     ```
 
 1. Create ingress and egress rules with field ingress_ports/egress_ports and default cidr block:
     ```hcl
-    ingress_ports      = [10, 20, 30]
-    egress_ports       = [40, 50, 60]
-    ingress_cidr_block = "2.2.2.2/32"
-    egress_cidr_block  = "30.30.30.30/32"
+    ingress_with_ports  = [10, 20, 30]
+    egress_with_ports   = [40, 50, 60]
+    ingress_cidr_blocks = ["2.2.2.2/32", "10.10.0.0/20"]
+    egress_cidr_blocks  = ["30.30.30.30/32", "10.10.0.0/20"]
     ```
     
     

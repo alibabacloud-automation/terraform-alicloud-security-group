@@ -26,7 +26,7 @@ variable "skip_region_validation" {
 #################
 
 variable "create" {
-  description = "Whether to create security group and all rules"
+  description = "Whether to create security group, If set `false` you must set `existing_group_id`."
   type        = bool
   default     = true
 }
@@ -50,7 +50,7 @@ variable "description" {
 }
 
 variable "existing_group_id" {
-  description = "ID of existing security group. If set, `create` will be ignored."
+  description = "ID of existing security group. If set, you should specify `create` as false to avoid creating redundant security group. (If this field has been set, you can set `create` to false at any time.)"
   default     = ""
 }
 
@@ -130,34 +130,46 @@ variable "egress_with_cidr_block" {
   default     = []
 }
 
+variable "egress_with_cidr_blocks" {
+  description = "List of egress rules to create where 'egress_cidr_block' is used. Each element's `cidr_block` will be ignored."
+  type        = list(map(string))
+  default     = []
+}
+
 variable "egress_with_source_security_group_id" {
   description = "List of egress rules to create where 'source_security_group_id' is used"
   type        = list(map(string))
   default     = []
 }
 
-variable "egress_cidr_block" {
-  description = "IPv4 CIDR ranges to use on all egress rules"
-  type        = string
-  default     = "0.0.0.0/0"
-}
-
-variable "egress_ports" {
+variable "egress_with_ports" {
   description = "The port list to use on all egress ports rules, from port and to port is same in this way."
   type        = list(number)
   default     = []
 }
 
-variable "egress_cidrs" {
-  description = "The IPv4 CIDR ranges list to use on egress cidrs rules"
+variable "protocol_for_egress_with_ports" {
+  description = "A protocol is used when setting `egress_with_ports`."
+  type        = string
+  default     = "tcp"
+}
+
+variable "egress_cidr_blocks" {
+  description = "The IPv4 CIDR ranges list to use on egress cidrs rules. It's length up to 20 and more items will be ignored."
   type        = list(string)
   default     = []
 }
 
-variable "egress_port_with_cidrs" {
-  description = "IPv4 CIDR ranges to use on egress cidrs rules, from port and to port is same in this way."
+variable "priority_for_egress_rules" {
+  description = "A priority is used when setting `egress_rules`. Default to `default_egress_priority`."
   type        = number
-  default     = 0
+  default     = 1
+}
+
+variable "default_egress_priority" {
+  description = "A default egress priority."
+  type        = number
+  default     = 50
 }
 
 # Deprecated variables

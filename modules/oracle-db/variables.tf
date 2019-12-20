@@ -1,3 +1,7 @@
+#################
+# Provider
+#################
+
 variable "region" {
   description = "The region used to launch this module resources."
   default     = ""
@@ -17,26 +21,43 @@ variable "skip_region_validation" {
   default     = false
 }
 
+#################
+# Security group
+#################
 
 variable "create" {
-  description = "Whether to create security group and all rules"
+  description = "Whether to create security group, If set `false` you must set `existing_group_id`."
   type        = bool
   default     = true
 }
 
-variable "create_vpc" {
-  description = "Whether to create a new vpc used to create security group and rules."
-  type        = bool
-  default     = false
+variable "vpc_id" {
+  description = "ID of the VPC where to create security group"
+  type        = string
+  default     = ""
 }
 
-variable "default_protocol" {
-  description = "The default protocol used to create rules, supported values: 'tcp', 'udp', 'gre', 'icmp' and 'all'."
-  default     = "all"
+variable "name" {
+  description = "Name of security group. It is used to create a new security group. A random name prefixed with 'terraform-sg-' will be set if it is empty."
+  type        = string
+  default     = ""
 }
 
-variable "this_module_name" {
-  default = "terraform-alicloud-security-group"
+variable "description" {
+  description = "Description of security group"
+  type        = string
+  default     = "Security Group managed by Terraform"
+}
+
+variable "existing_group_id" {
+  description = "ID of existing security group. If set, you should specify `create` as false to avoid creating redundant security group. (If this field has been set, you can set `create` to false at any time.)"
+  default     = ""
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to security group"
+  type        = map(string)
+  default     = {}
 }
 
 ##########
@@ -50,39 +71,48 @@ variable "ingress_rules" {
 }
 
 variable "ingress_with_cidr_block" {
-  description = "List of ingress rules to create where 'cidr_blocks' is used"
+  description = "List of ingress rules to create where 'ingress_cidr_block' is not used. Each element's `cidr_block` can not be empty."
   type        = list(map(string))
   default     = []
 }
-
+variable "ingress_with_cidr_blocks" {
+  description = "List of ingress rules to create where 'ingress_cidr_block' is used. Each element's `cidr_block` will be ignored."
+  type        = list(map(string))
+  default     = []
+}
 variable "ingress_with_source_security_group_id" {
   description = "List of ingress rules to create where 'source_security_group_id' is used"
   type        = list(map(string))
   default     = []
 }
 
-variable "ingress_cidr_block" {
-  description = "IPv4 CIDR ranges to use on all ingress rules"
-  type        = string
-  default     = ""
-}
-
-variable "ingress_ports" {
+variable "ingress_with_ports" {
   description = "The port list to use on all ingress ports rules, from port and to port is same in this way."
   type        = list(number)
   default     = []
 }
+variable "protocol_for_ingress_with_ports" {
+  description = "A protocol is used when setting `ingress_with_ports`."
+  type        = string
+  default     = "tcp"
+}
 
-variable "ingress_cidrs" {
-  description = "The IPv4 CIDR ranges list to use on ingress cidrs rules"
+variable "ingress_cidr_blocks" {
+  description = "The IPv4 CIDR ranges list to use on ingress cidrs rules. It's length up to 20 and more items will be ignored."
   type        = list(string)
   default     = []
 }
 
-variable "ingress_port_with_cidrs" {
-  description = "IPv4 CIDR ranges to use on ingress cidrs rules, from port and to port is same in this way."
+variable "priority_for_ingress_rules" {
+  description = "A priority is used when setting `ingress_rules`. Default to `default_ingress_priority`."
   type        = number
-  default     = 0
+  default     = 1
+}
+
+variable "default_ingress_priority" {
+  description = "A default ingress priority."
+  type        = number
+  default     = 50
 }
 
 #########
@@ -100,72 +130,86 @@ variable "egress_with_cidr_block" {
   default     = []
 }
 
+variable "egress_with_cidr_blocks" {
+  description = "List of egress rules to create where 'egress_cidr_block' is used. Each element's `cidr_block` will be ignored."
+  type        = list(map(string))
+  default     = []
+}
+
 variable "egress_with_source_security_group_id" {
   description = "List of egress rules to create where 'source_security_group_id' is used"
   type        = list(map(string))
   default     = []
 }
 
-variable "egress_cidr_block" {
-  description = "IPv4 CIDR ranges to use on all egress rules"
-  type        = string
-  default     = "0.0.0.0/0"
-}
-
-variable "egress_ports" {
+variable "egress_with_ports" {
   description = "The port list to use on all egress ports rules, from port and to port is same in this way."
   type        = list(number)
   default     = []
 }
 
-variable "egress_cidrs" {
-  description = "The IPv4 CIDR ranges list to use on egress cidrs rules"
+variable "protocol_for_egress_with_ports" {
+  description = "A protocol is used when setting `egress_with_ports`."
+  type        = string
+  default     = "tcp"
+}
+
+variable "egress_cidr_blocks" {
+  description = "The IPv4 CIDR ranges list to use on egress cidrs rules. It's length up to 20 and more items will be ignored."
   type        = list(string)
   default     = []
 }
 
-variable "egress_port_with_cidrs" {
-  description = "IPv4 CIDR ranges to use on egress cidrs rules, from port and to port is same in this way."
+variable "priority_for_egress_rules" {
+  description = "A priority is used when setting `egress_rules`. Default to `default_egress_priority`."
   type        = number
-  default     = 0
+  default     = 1
 }
 
+variable "default_egress_priority" {
+  description = "A default egress priority."
+  type        = number
+  default     = 50
+}
 
-
-# VPC variables
-variable "vpc_name" {
-  description = "The vpc name used to create a new vpc when 'vpc_id' is not specified. Default to variable `this_module_name`"
+# Deprecated variables
+variable "this_module_name" {
+  description = "(Deprecated) It has been deprecated from 1.6.0, and use `name` instead."
   default     = ""
 }
-
-variable "vpc_id" {
-  description = "A existing vpc id used to create security group."
+variable "vpc_name" {
+  description = "(Deprecated) It has been deprecated from 1.6.0."
   default     = ""
 }
 
 variable "vpc_cidr" {
-  description = "The cidr block used to launch a new vpc when 'vpc_id' is not specified."
-  default     = "10.1.0.0/21"
+  description = "(Deprecated) It has been deprecated from 1.6.0."
+  default     = ""
 }
 
-# Security Group variables
 variable "group_id" {
-  description = "The security group id used to launch its rules."
+  description = "(Deprecated) It has been deprecated from 1.6.0, and use `existing_group_id` instead."
   default     = ""
 }
 
 variable "group_name" {
-  description = "The security group name used to launch a new security group when 'group_id' is not specified. Default to `this_module_name`"
+  description = "(Deprecated) It has been deprecated from 1.6.0 and use 'name' instead."
   default     = ""
 }
 
 variable "group_description" {
-  description = "The security group descripton used to launch a new security group when 'group_id' is not specified. Default to `TF_Security_Group`."
-  default     = "TF_Security_Group"
+  description = "(Deprecated) It has been deprecated from 1.6.0 and use 'name' instead."
+  default     = ""
+}
+
+variable "protocol" {
+  description = "(Deprecated) It has been deprecated from 1.6.0, and use `protocol_for_ingress_with_ports` and `protocol_for_egress_with_ports` instead."
+  type        = string
+  default     = "tcp"
 }
 
 variable "priority" {
-  description = "The security group rules priority used to set one or more rules."
+  description = "(Deprecated) It has been deprecated from 1.6.0, and use `default_ingress_priority` and `default_egress_priority` instead."
   type        = number
   default     = 1
 }
