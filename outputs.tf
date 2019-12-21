@@ -2,7 +2,7 @@
 
 output "this_security_group_id" {
   description = "The ID of the security group"
-  value       = local.group_id
+  value       = local.this_sg_id
 }
 
 output "this_security_group_vpc_id" {
