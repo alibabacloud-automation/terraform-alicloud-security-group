@@ -28,7 +28,7 @@ variable "skip_region_validation" {
 variable "create" {
   description = "Whether to create security group, If set `false` you must set `existing_group_id`."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "vpc_id" {
@@ -71,28 +71,28 @@ variable "ingress_rules" {
 }
 
 variable "ingress_with_cidr_block" {
-  description = "List of ingress rules to create where 'ingress_cidr_block' is not used. Each element's `cidr_block` can not be empty."
+  description = "List of ingress rules to create where `cidr_block` is used. Each item's `cidr_block` can not be empty."
   type        = list(map(string))
   default     = []
 }
 variable "ingress_with_cidr_blocks" {
-  description = "List of ingress rules to create where 'ingress_cidr_block' is used. Each element's `cidr_block` will be ignored."
+  description = "List of ingress rules to create where 'cidr_block' is not used. Each item's `cidr_block` will be ignored."
   type        = list(map(string))
   default     = []
 }
 variable "ingress_with_source_security_group_id" {
-  description = "List of ingress rules to create where 'source_security_group_id' is used"
+  description = "List of ingress rules to create where `source_security_group_id` is used"
   type        = list(map(string))
   default     = []
 }
 
 variable "ingress_with_ports" {
-  description = "The port list to use on all ingress ports rules, from port and to port is same in this way."
+  description = "The port list to use on all ingress ports rules. `from` and `to` have the same port. Example: [80, 443] means 80/80 and 443/443."
   type        = list(number)
   default     = []
 }
 variable "protocol_for_ingress_with_ports" {
-  description = "A protocol is used when setting `ingress_with_ports`."
+  description = "The default protocol where `ingress_with_ports` is used"
   type        = string
   default     = "tcp"
 }
@@ -125,13 +125,13 @@ variable "egress_rules" {
 }
 
 variable "egress_with_cidr_block" {
-  description = "List of egress rules to create where 'cidr_blocks' is used"
+  description = "List of egress rules to create where `cidr_block` is used. Each item's `cidr_block` can not be empty."
   type        = list(map(string))
   default     = []
 }
 
 variable "egress_with_cidr_blocks" {
-  description = "List of egress rules to create where 'egress_cidr_block' is used. Each element's `cidr_block` will be ignored."
+  description = "List of egress rules to create where 'cidr_block' is not used. Each item's `cidr_block` will be ignored."
   type        = list(map(string))
   default     = []
 }
@@ -143,13 +143,13 @@ variable "egress_with_source_security_group_id" {
 }
 
 variable "egress_with_ports" {
-  description = "The port list to use on all egress ports rules, from port and to port is same in this way."
+  description = "The port list to use on all egress ports rules. `from` and `to` have the same port. Example: [80, 443] means 80/80 and 443/443."
   type        = list(number)
   default     = []
 }
 
 variable "protocol_for_egress_with_ports" {
-  description = "A protocol is used when setting `egress_with_ports`."
+  description = "A protocol where `egress_with_ports` is used."
   type        = string
   default     = "tcp"
 }
@@ -161,7 +161,7 @@ variable "egress_cidr_blocks" {
 }
 
 variable "priority_for_egress_rules" {
-  description = "A priority is used when setting `egress_rules`. Default to `default_egress_priority`."
+  description = "A priority where `egress_rules` is used. Default to `default_egress_priority`."
   type        = number
   default     = 1
 }
