@@ -1,6 +1,6 @@
 variable "create" {
   description = "Whether to create security group rules"
-  default = false
+  default     = false
 }
 variable "group_id" {
   description = "ID of existing security group."
@@ -23,6 +23,12 @@ variable "ingress_rules" {
   description = "List of ingress rules to create by name"
   type        = list(string)
   default     = []
+}
+
+variable "priority_for_ingress_rules" {
+  description = "The priority where `ingress_rules` is used"
+  type        = number
+  default     = 1
 }
 
 variable "ingress_with_cidr_blocks" {
@@ -49,8 +55,8 @@ variable "protocol_for_ingress_with_ports" {
   default     = "tcp"
 }
 
-variable "priority_for_ingress_rules" {
-  description = "The priority where `ingress_rules` is used"
+variable "priority_for_ingress_with_ports" {
+  description = "A priority is used when setting `ingress_with_ports`. Default to `default_ingress_priority`."
   type        = number
   default     = 1
 }
@@ -69,7 +75,11 @@ variable "egress_rules" {
   type        = list(string)
   default     = []
 }
-
+variable "priority_for_egress_rules" {
+  description = "The priority where `egress_rules` is used"
+  type        = number
+  default     = 1
+}
 variable "egress_with_cidr_blocks" {
   description = "List of egress rules to create where `cidr_block` is not used. Each item's `cidr_block` will be ignored."
   type        = list(map(string))
@@ -94,8 +104,8 @@ variable "protocol_for_egress_with_ports" {
   default     = "tcp"
 }
 
-variable "priority_for_egress_rules" {
-  description = "The priority where `egress_rules` is used"
+variable "priority_for_egress_with_ports" {
+  description = "A priority is used when setting `egress_with_ports`. Default to `default_egress_priority`."
   type        = number
   default     = 1
 }

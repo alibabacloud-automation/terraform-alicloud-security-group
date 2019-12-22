@@ -1,8 +1,10 @@
-# HTTP Security Group example
+# Disabled Security Group example
 
-Configuration in this directory creates set of Security Group and Security Group Rules resources in various combination to for `http` scenario.
+Configuration in this directory creates set of Security Group and Security Group Rules resources in various combination.
 
 Data sources are used to discover existing VPC resources (VPC and default security group).
+
+This example aims to show setting `create = false` will not create a new security group.
 
 ## Usage
 
@@ -21,9 +23,6 @@ Note that this example may create resources which cost money. Run `terraform des
 
 | Name | Description |
 |------|-------------|
-| this\_security\_group\_description | The description of the security group |
 | this\_security\_group\_id | The ID of the security group |
-| this\_security\_group\_name | The name of the security group |
-| this\_security\_group\_vpc\_id | The VPC ID |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

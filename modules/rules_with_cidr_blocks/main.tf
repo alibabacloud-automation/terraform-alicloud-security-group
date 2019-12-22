@@ -38,7 +38,7 @@ resource "alicloud_security_group_rule" "ingress_with_ports" {
   port_range        = "${var.ingress_with_ports[count.index]}/${var.ingress_with_ports[count.index]}"
   security_group_id = var.group_id
   cidr_ip           = var.ingress_cidr_block
-  priority          = var.default_ingress_priority
+  priority          = var.priority_for_ingress_with_ports > 0 ? var.priority_for_ingress_with_ports : var.default_ingress_priority
   description       = "Ingress Rule"
 }
 
@@ -82,6 +82,6 @@ resource "alicloud_security_group_rule" "egress_with_ports" {
   port_range        = "${var.egress_with_ports[count.index]}/${var.egress_with_ports[count.index]}"
   security_group_id = var.group_id
   cidr_ip           = var.egress_cidr_block
-  priority          = var.default_egress_priority
+  priority          = var.priority_for_egress_with_ports > 0 ? var.priority_for_egress_with_ports : var.default_egress_priority
   description       = "Egress Rule"
 }
