@@ -28,7 +28,7 @@ variable "skip_region_validation" {
 variable "create" {
   description = "Whether to create security group, If set `false` you must set `existing_group_id`."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "vpc_id" {
@@ -70,6 +70,12 @@ variable "ingress_rules" {
   default     = []
 }
 
+variable "priority_for_ingress_rules" {
+  description = "A priority is used when setting `ingress_rules`. Default to `default_ingress_priority`."
+  type        = number
+  default     = 1
+}
+
 variable "ingress_with_cidr_block" {
   description = "List of ingress rules to create where `cidr_block` is used. Each item's `cidr_block` can not be empty."
   type        = list(map(string))
@@ -97,16 +103,16 @@ variable "protocol_for_ingress_with_ports" {
   default     = "tcp"
 }
 
+variable "priority_for_ingress_with_ports" {
+  description = "A priority is used when setting `ingress_with_ports`. Default to `default_ingress_priority`."
+  type        = number
+  default     = 1
+}
+
 variable "ingress_cidr_blocks" {
   description = "The IPv4 CIDR ranges list to use on ingress cidrs rules. It's length up to 20 and more items will be ignored."
   type        = list(string)
   default     = []
-}
-
-variable "priority_for_ingress_rules" {
-  description = "A priority is used when setting `ingress_rules`. Default to `default_ingress_priority`."
-  type        = number
-  default     = 1
 }
 
 variable "default_ingress_priority" {
@@ -122,6 +128,11 @@ variable "egress_rules" {
   description = "List of egress rules to create by name"
   type        = list(string)
   default     = []
+}
+variable "priority_for_egress_rules" {
+  description = "A priority where `egress_rules` is used. Default to `default_egress_priority`."
+  type        = number
+  default     = 1
 }
 
 variable "egress_with_cidr_block" {
@@ -154,16 +165,16 @@ variable "protocol_for_egress_with_ports" {
   default     = "tcp"
 }
 
+variable "priority_for_egress_with_ports" {
+  description = "A priority is used when setting `egress_with_ports`. Default to `default_egress_priority`."
+  type        = number
+  default     = 1
+}
+
 variable "egress_cidr_blocks" {
   description = "The IPv4 CIDR ranges list to use on egress cidrs rules. It's length up to 20 and more items will be ignored."
   type        = list(string)
   default     = []
-}
-
-variable "priority_for_egress_rules" {
-  description = "A priority where `egress_rules` is used. Default to `default_egress_priority`."
-  type        = number
-  default     = 1
 }
 
 variable "default_egress_priority" {

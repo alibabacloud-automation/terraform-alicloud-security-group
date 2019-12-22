@@ -1,8 +1,10 @@
-# HTTP Security Group example
+# Computed Security Group example
 
-Configuration in this directory creates set of Security Group and Security Group Rules resources in various combination to for `http` scenario.
+Configuration in this directory creates set of Security Group and Security Group Rules resources in various combination.
 
 Data sources are used to discover existing VPC resources (VPC and default security group).
+
+This example aims to show rules' `source_security_group_id` can come from another security group module or resource.
 
 ## Usage
 

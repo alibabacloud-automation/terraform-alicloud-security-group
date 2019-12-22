@@ -10,6 +10,7 @@ module "cidr_blocks_0" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -18,6 +19,7 @@ module "cidr_blocks_0" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -32,6 +34,7 @@ module "cidr_blocks_1" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -40,6 +43,7 @@ module "cidr_blocks_1" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -54,6 +58,7 @@ module "cidr_blocks_2" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -62,6 +67,7 @@ module "cidr_blocks_2" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -76,6 +82,7 @@ module "cidr_blocks_3" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -84,6 +91,7 @@ module "cidr_blocks_3" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -98,6 +106,7 @@ module "cidr_blocks_4" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -106,6 +115,7 @@ module "cidr_blocks_4" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -120,6 +130,7 @@ module "cidr_blocks_5" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -128,6 +139,7 @@ module "cidr_blocks_5" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -142,6 +154,7 @@ module "cidr_blocks_6" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -150,6 +163,7 @@ module "cidr_blocks_6" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -164,6 +178,7 @@ module "cidr_blocks_7" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -172,6 +187,7 @@ module "cidr_blocks_7" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -186,6 +202,7 @@ module "cidr_blocks_8" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -194,6 +211,7 @@ module "cidr_blocks_8" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -208,6 +226,7 @@ module "cidr_blocks_9" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -216,6 +235,7 @@ module "cidr_blocks_9" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -231,6 +251,7 @@ module "cidr_blocks_10" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -239,6 +260,7 @@ module "cidr_blocks_10" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -253,6 +275,7 @@ module "cidr_blocks_11" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -261,6 +284,7 @@ module "cidr_blocks_11" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -275,6 +299,7 @@ module "cidr_blocks_12" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -283,6 +308,7 @@ module "cidr_blocks_12" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -297,6 +323,7 @@ module "cidr_blocks_13" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -305,6 +332,7 @@ module "cidr_blocks_13" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -319,6 +347,7 @@ module "cidr_blocks_14" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -327,6 +356,7 @@ module "cidr_blocks_14" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -341,6 +371,7 @@ module "cidr_blocks_15" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -349,6 +380,7 @@ module "cidr_blocks_15" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -363,6 +395,7 @@ module "cidr_blocks_16" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -371,6 +404,7 @@ module "cidr_blocks_16" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -385,6 +419,7 @@ module "cidr_blocks_17" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -393,6 +428,7 @@ module "cidr_blocks_17" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -407,6 +443,7 @@ module "cidr_blocks_18" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -415,6 +452,7 @@ module "cidr_blocks_18" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
@@ -429,6 +467,7 @@ module "cidr_blocks_19" {
   ingress_with_cidr_blocks        = var.ingress_with_cidr_blocks
   ingress_with_ports              = var.ingress_with_ports
   protocol_for_ingress_with_ports = var.protocol_for_ingress_with_ports
+  priority_for_ingress_with_ports = var.priority_for_ingress_with_ports
   default_ingress_priority        = var.default_ingress_priority
   priority_for_ingress_rules      = var.priority_for_ingress_rules
 
@@ -437,6 +476,7 @@ module "cidr_blocks_19" {
   egress_with_cidr_blocks        = var.egress_with_cidr_blocks
   egress_with_ports              = var.egress_with_ports
   protocol_for_egress_with_ports = var.protocol_for_egress_with_ports
+  priority_for_egress_with_ports = var.priority_for_egress_with_ports
   default_egress_priority        = var.default_ingress_priority
   priority_for_egress_rules      = var.priority_for_egress_rules
 }
