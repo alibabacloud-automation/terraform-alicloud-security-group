@@ -77,7 +77,7 @@ variable "priority_for_ingress_rules" {
 }
 
 variable "ingress_with_cidr_block" {
-  description = "List of ingress rules to create where `cidr_block` is used. Each item's `cidr_block` can not be empty."
+  description = "List of ingress rules to create where `cidr_block` is used. Each item's `cidr_block` can not be empty.  If some one item want to use `cidr_blocks`, the first one of `cidr_blocks` will be used."
   type        = list(map(string))
   default     = []
 }
@@ -136,7 +136,7 @@ variable "priority_for_egress_rules" {
 }
 
 variable "egress_with_cidr_block" {
-  description = "List of egress rules to create where `cidr_block` is used. Each item's `cidr_block` can not be empty."
+  description = "List of egress rules to create where `cidr_block` is used. Each item's `cidr_block` can not be empty. If some one item want to use `cidr_blocks`, the first one of `cidr_blocks` will be used."
   type        = list(map(string))
   default     = []
 }
