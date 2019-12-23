@@ -1,4 +1,4 @@
-# ssh - Alicloud Security Group Terraform module
+# ssh - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

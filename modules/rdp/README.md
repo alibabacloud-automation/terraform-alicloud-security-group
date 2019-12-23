@@ -1,4 +1,4 @@
-# rdp - Alicloud Security Group Terraform module
+# rdp - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

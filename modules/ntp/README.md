@@ -1,4 +1,4 @@
-# ntp - Alicloud Security Group Terraform module
+# ntp - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

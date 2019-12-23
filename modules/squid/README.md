@@ -1,4 +1,4 @@
-# squid - Alicloud Security Group Terraform module
+# squid - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

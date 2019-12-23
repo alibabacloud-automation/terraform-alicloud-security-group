@@ -1,4 +1,4 @@
-# web - Alicloud Security Group Terraform module
+# web - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

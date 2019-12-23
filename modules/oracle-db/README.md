@@ -1,4 +1,4 @@
-# oracle-db - Alicloud Security Group Terraform module
+# oracle-db - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

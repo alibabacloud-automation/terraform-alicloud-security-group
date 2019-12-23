@@ -1,4 +1,4 @@
-# redshift - Alicloud Security Group Terraform module
+# redshift - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

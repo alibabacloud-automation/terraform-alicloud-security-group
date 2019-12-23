@@ -1,4 +1,4 @@
-# kafka - Alicloud Security Group Terraform module
+# kafka - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

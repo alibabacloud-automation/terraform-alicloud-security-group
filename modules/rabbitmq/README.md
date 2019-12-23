@@ -1,4 +1,4 @@
-# rabbitmq - Alicloud Security Group Terraform module
+# rabbitmq - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

@@ -1,4 +1,4 @@
-# storm - Alicloud Security Group Terraform module
+# storm - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

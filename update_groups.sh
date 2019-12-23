@@ -117,13 +117,13 @@ variable "auto_egress_rules" {
 EOF
 
     cat <<EOF > "modules/$group/README.md"
-# $group - Alicloud Security Group Terraform module
+# $group - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 
 \`\`\`hcl
 module "${group/-/_}_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/${group}"
+  source  = "alibaba/security-group/alicloud//modules/${group}"
 
   # omitted...
 }

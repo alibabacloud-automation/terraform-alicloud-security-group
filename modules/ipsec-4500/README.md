@@ -1,4 +1,4 @@
-# ipsec-4500 - Alicloud Security Group Terraform module
+# ipsec-4500 - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

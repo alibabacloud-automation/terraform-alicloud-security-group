@@ -1,10 +1,10 @@
-# ldaps - Alicloud Security Group Terraform module
+# ldaps - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 
 ```hcl
 module "ldaps_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/ldaps"
+  source  = "alibaba/security-group/alicloud//modules/ldaps"
 
   # omitted...
 }
