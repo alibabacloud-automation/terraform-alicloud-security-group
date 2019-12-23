@@ -74,7 +74,7 @@ module "complete_sg" {
   ingress_rules              = ["https-443-tcp"]
   priority_for_ingress_rules = 2
 
-  # Open to CIDRs blocks (rule or from_port+to_port+protocol+description+priority)
+  # Open to CIDRs block (rule or cidr_block+from_port+to_port+protocol+description+priority)
   ingress_with_cidr_block = [
     {
       rule       = "postgresql-tcp"
@@ -90,6 +90,21 @@ module "complete_sg" {
       to_port     = 20
       protocol    = "tcp"
       cidr_block  = "10.10.0.0/20"
+      description = "Service name"
+      priority    = 2
+    },
+  ]
+
+  # Open to CIDRs blocks (rule or from_port+to_port+protocol+description+priority)
+  ingress_with_cidr_blocks = [
+    {
+      rule     = "dns-udp"
+      priority = 1
+    },
+    {
+      from_port   = 53
+      to_port     = 53
+      protocol    = "udp"
       description = "Service name"
       priority    = 2
     },
@@ -129,23 +144,41 @@ module "complete_sg" {
   egress_rules              = ["http-80-tcp"]
   priority_for_egress_rules = 2
 
-  # Open to CIDRs blocks (rule or from_port+to_port+protocol+description+priority)
-  egress_with_cidr_blocks = [
+  # Open to CIDRs block (rule or cidr_block+from_port+to_port+protocol+description+priority)
+  egress_with_cidr_block = [
     {
-      rule        = "postgresql-tcp"
-      cidr_blocks = "0.0.0.0/0,2.2.2.2/32"
-      priority    = 1
+      rule       = "postgresql-tcp"
+      cidr_block = "0.0.0.0/0"
+      priority   = 1
     },
     {
-      rule        = "https-443-tcp"
-      cidr_blocks = "30.30.30.30/32"
+      rule       = "https-443-tcp"
+      cidr_block = "30.30.30.30/32"
     },
     {
       from_port   = 10
       to_port     = 20
       protocol    = "tcp"
       description = "Service name"
-      cidr_blocks = "10.10.0.0/20"
+      cidr_block  = "10.10.0.0/20"
+      priority    = 2
+    },
+  ]
+
+  # Open to CIDRs blocks (rule or from_port+to_port+protocol+description+priority)
+  egress_with_cidr_blocks = [
+    {
+      rule     = "ipsec-500-udp"
+      priority = 1
+    },
+    {
+      rule = "ipsec-4500-udp"
+    },
+    {
+      from_port   = 10
+      to_port     = 20
+      protocol    = "udp"
+      description = "Service name"
       priority    = 2
     },
   ]
