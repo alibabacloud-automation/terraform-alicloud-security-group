@@ -1,27 +1,26 @@
-Alicloud ECS Security Group Terraform Module In VPC
 terraform-alicloud-security-group
 ================================================================================
 
-本 module 用于在阿里云创建 [ECS security group within VPC](https://www.alibabacloud.com/help/doc-detail/25387.htm) 模块.
+本 Module 用于在阿里云的 VPC 下创建一个[安全组（Security Group）](https://help.aliyun.com/document_detail/25387.html)
 
-支持了以下资源:
+本 Module 支持创建以下资源:
 
-* [ECS-VPC Security Group](https://www.terraform.io/docs/providers/alicloud/r/security_group.html)
-* [ECS-VPC Security Group Rule](https://www.terraform.io/docs/providers/alicloud/r/security_group_rule.html)
+* [安全组（Security Group）](https://www.terraform.io/docs/providers/alicloud/r/security_group.html)
+* [安全组规则（Security Group Rule）](https://www.terraform.io/docs/providers/alicloud/r/security_group_rule.html)
 
 ## 功能
 
-该模块支持以下参数组合，由阿里云与最新稳定版本 Terraform 支持：
-* IPv4 CIDR blocks (IPv4 网段)
-* Access from source security groups (来自源安全组的访问)
-* Access from self (自我访问)
-* Named rules ([see the rules here](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/rules.tf)) (已命名安全组规则)
-* Named groups of rules with ingress (inbound) and egress (outbound) ports open for common scenarios (eg, [ssh](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/modules/ssh), [http-80](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/modules/http-80), [mysql](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/modules/mysql), see the whole list [here](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/modules/README.md)) (具有入和出端口的已命名安全组规则可在常见情况下使用)
-* Conditionally create security group and all required security group rules ("single boolean switch"). (通过单个布尔开关决定是否创建安全组和所有必需的安全组规则。)
+本模块在稳定的 Terraform 及 阿里云 Provider 版本下，支持通过多种参数的不同组合实现对安全组的创建和安全组规则的批量添加：
 
-入口和出口规则可以通过多种方式配置.  [inputs variables](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/variables.tf) 为支持的所有参数，以及 [complete example](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/complete) 完整示例.
+* IPv4 CIDR blocks (设置 IPv4 网段来添加安全组规则)
+* Access from source security groups (设置源安全组 ID 来添加安全组规则)
+* Named rules (通过对安全组规则进行命名来直接在模板中引用和添加安全组规则：https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/rules.tf)
+* 常见的安全组规则，如 [ssh](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/modules/ssh), [http-80](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/modules/http-80), [mysql](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/modules/mysql)
+* 条件控制是否创建一个新的安全组和为安全组添加规则
 
-如果缺少功能或发现错误 - [open an issue](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/issues/new).
+入口和出口规则可以通过多种方式配置和添加，可以参考所有的参数 [inputs variables](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/variables.tf)，和本 Module 提供的[完整的 Example](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/complete)。
+
+如果在使用过程中，发现 Module 有错误或者有无法满足您的需求，可以直接提交Issues：[open an issue](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/issues/new).
 
 ## Terraform 版本
 
@@ -31,15 +30,9 @@ terraform-alicloud-security-group
 
 ## 用法
 
-通过以下几种方式来创建安全组及安全组规则:
+本 Module 支持以下几种方式来创建安全组及安全组规则:
 
-1. [指定预定义的安全组规则 (HTTP, SSH, etc)](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group#security-group-with-predefined-rules)
-1. [指定单个网段创建自定义安全组规则](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group#security-group-with-custom-rules-of-single-cidr-block)
-1. [指定多个网段创建自定义安全组规则](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group#security-group-with-custom-rules-of-multiple-cidr-blocks)
-1. [指定网段及端口列表创建自定义安全组规则](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group#security-group-with-custom-rules-of-list-ports-and-cidr-blocks)
-1. [指定源安全组创建自定义安全组规则](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group#security-group-with-custom-rules-of-source-security-group-id)
-
-### 创建安全组与预定义安全组规则
+### 使用预定义安全组规则
 
 ```hcl
 module "web_server_sg" {
@@ -53,7 +46,7 @@ module "web_server_sg" {
 }
 ```
 
-### 单个网段创建自定义安全组规则
+### 使用自定义的安全组规则，每个规则中指定单个网段
 
 ```hcl
 module "service_sg_with_single_cidr" {
@@ -87,7 +80,7 @@ module "service_sg_with_single_cidr" {
 }
 ```
 
-### 多个网段创建多组自定义安全组规则
+### 使用自定义的安全组规则，通过一个网段列表指定多个网段
 
 ```hcl
 module "service_sg_with_multi_cidr" {
@@ -122,7 +115,7 @@ module "service_sg_with_multi_cidr" {
 }
 ```
 
-### 端口和网段列表创建一组自定义安全组入网规则
+### 使用自定义的安全组规则，通过一个网段列表指定多个网段，一个端口列表指定多个端口（此时每个规则的起始端口和终止端口是相同的）
 
 ```hcl
 module "service_sg_with_ports" {
@@ -141,7 +134,7 @@ module "service_sg_with_ports" {
 }
 ```
 
-### 通过源安全组ID创建自定义安全组入网规则
+### 使用自定义的安全组规则，执行一个源安全组ID，实现组组授权
 
 ```hcl
 module "service_sg_with_source_sg_id" {
@@ -176,9 +169,9 @@ module "service_sg_with_source_sg_id" {
 }
 ```
 
-## 使用场景
+## 条件判断
 
-有时您需要决定是否创建安全组的开关，但是Terraform不允许在`module`中使用`count`，因此解决方案是指定参数`create`。
+有时可能不需要创建一个新的安全组，但是 Terraform Module 中又不能指定 `count`，此时可以之间通过设置 `create = false` 来实现。
 
 ```hcl
 # This security group will not be created
@@ -190,7 +183,7 @@ module "vote_service_sg" {
 }
 ```
 
-有时您需要使用现有安全组，解决方案是将参数`create`设置为`false`并指定现有安全组ID。
+如果想使用本 Module 对存量的安全组增加安全组规则，可以设置`create = false`，并通过 `existing_group_id` 指定一个存量的安全组ID。
 
 ```hcl
 # This security group will not be created
@@ -206,16 +199,16 @@ module "vote_service_sg" {
 
 ## 示例
 
-* [完整的安全组示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/complete) shows all available parameters to configure security group.
-* [HTTP 安全组示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/http) shows more applicable security groups for common web-servers.
-* [禁用创建安全组示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/disabled) shows how to disable creation of security group.
-* [现有安全组创建示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/disabled) shows how to disable creation of security group and use a existing security group.
-* [动态安全组入网规则示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/dynamic) shows how to specify values inside security group rules (data-sources and variables are allowed).
-* [计算值安全组入网规则示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/computed) shows how to specify computed values inside security group rules (solution for `value of 'count' cannot be computed` problem).
+* [完整的安全组规则使用示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/complete) shows all available parameters to configure security group.
+* [HTTP 安全组规则使用示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/http) shows more applicable security groups for common web-servers.
+* [不创建安全组示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/disabled) shows how to disable creation of security group.
+* [使用现有安全组添加规则示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/disabled) shows how to disable creation of security group and use a existing security group.
+* [使用动态安全组增加入网规则示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/dynamic) shows how to specify values inside security group rules (data-sources and variables are allowed).
+* [新增的安全组来指定源安全组ID示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/computed) shows how to specify computed values inside security group rules (solution for `value of 'count' cannot be computed` problem).
 
 ## 如何添加/更新安全组入网规则
 
-规则与安全组定义于 [rules.tf](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/rules.tf)，当该文件的内容已更改以重新创建所有自动模块的内容时，运行 `update_groups.sh`.
+规则与安全组定义于 [rules.tf](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/rules.tf)。如果修改了该文件，并想将其应用到所有的已经生成的规则上，可直接运行 `update_groups.sh`.
 
 作者
 -------
