@@ -1,4 +1,4 @@
-# consul - Alicloud Security Group Terraform module
+# consul - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

@@ -1,10 +1,10 @@
-# zipkin - Alicloud Security Group Terraform module
+# zipkin - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 
 ```hcl
 module "zipkin_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/zipkin"
+  source  = "alibaba/security-group/alicloud//modules/zipkin"
 
   # omitted...
 }

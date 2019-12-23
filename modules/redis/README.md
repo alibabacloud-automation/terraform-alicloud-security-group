@@ -1,4 +1,4 @@
-# redis - Alicloud Security Group Terraform module
+# redis - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

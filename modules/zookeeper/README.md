@@ -1,4 +1,4 @@
-# zookeeper - Alicloud Security Group Terraform module
+# zookeeper - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

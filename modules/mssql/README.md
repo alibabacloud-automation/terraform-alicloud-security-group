@@ -1,4 +1,4 @@
-# mssql - Alicloud Security Group Terraform module
+# mssql - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

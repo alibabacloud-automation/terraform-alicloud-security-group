@@ -1,4 +1,4 @@
-# puppet - Alicloud Security Group Terraform module
+# puppet - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

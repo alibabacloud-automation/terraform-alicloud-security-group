@@ -1,4 +1,4 @@
-# winrm - Alicloud Security Group Terraform module
+# winrm - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

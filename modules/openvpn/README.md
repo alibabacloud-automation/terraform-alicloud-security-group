@@ -1,10 +1,10 @@
-# openvpn - Alicloud Security Group Terraform module
+# openvpn - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 
 ```hcl
 module "openvpn_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/openvpn"
+  source  = "alibaba/security-group/alicloud//modules/openvpn"
 
   # omitted...
 }

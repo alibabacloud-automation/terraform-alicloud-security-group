@@ -1,4 +1,4 @@
-# postgresql - Alicloud Security Group Terraform module
+# postgresql - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

@@ -1,4 +1,4 @@
-# http-80 - Alicloud Security Group Terraform module
+# http-80 - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 

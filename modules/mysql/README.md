@@ -1,4 +1,4 @@
-# mysql - Alicloud Security Group Terraform module
+# mysql - Alibaba Cloud Security Group Terraform module
 
 ## Usage
 
