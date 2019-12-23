@@ -1,4 +1,4 @@
-## 2.0.0 (Unreleased)
+## 2.0.0 (December 23, 2019)
 
 - **Added:** `examples` [GH-18](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/18)
 - **Added:** `sub module` [GH-15](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/15)
@@ -6,7 +6,8 @@
 
 IMPROVEMENTS:
 
-- imporve(security group): added changelog and modify the docs.  [GH-22](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/22)
+- improve README-CN [GH-23](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/23)
+- imporve(security group): added changelog and modify the docs. [GH-22](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/22)
 - correct summodule source url  [GH-21](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/21)
 - improve README  [GH-20](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/20)
 - improve README  [GH-19](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/19)
