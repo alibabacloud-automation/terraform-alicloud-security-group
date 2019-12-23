@@ -1,6 +1,5 @@
 module "sg" {
   source                  = "../../"
-  version                 = "~> 2.0"
   region                  = var.region
   profile                 = var.profile
   shared_credentials_file = var.shared_credentials_file

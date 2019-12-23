@@ -5,6 +5,7 @@
 ```hcl
 module "consul_security_group" {
   source  = "alibaba/security-group/alicloud//modules/consul"
+  version = "~> 2.0"
 
   # omitted...
 }

@@ -5,6 +5,7 @@
 ```hcl
 module "nomad_security_group" {
   source  = "alibaba/security-group/alicloud//modules/nomad"
+  version = "~> 2.0"
 
   # omitted...
 }

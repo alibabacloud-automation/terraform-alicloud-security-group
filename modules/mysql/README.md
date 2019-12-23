@@ -5,6 +5,7 @@
 ```hcl
 module "mysql_security_group" {
   source  = "alibaba/security-group/alicloud//modules/mysql"
+  version = "~> 2.0"
 
   # omitted...
 }

@@ -5,6 +5,7 @@
 ```hcl
 module "ipsec_4500_security_group" {
   source  = "alibaba/security-group/alicloud//modules/ipsec-4500"
+  version = "~> 2.0"
 
   # omitted...
 }

@@ -5,6 +5,7 @@
 ```hcl
 module "mongodb_security_group" {
   source  = "alibaba/security-group/alicloud//modules/mongodb"
+  version = "~> 2.0"
 
   # omitted...
 }
