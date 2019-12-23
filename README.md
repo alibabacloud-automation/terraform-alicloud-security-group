@@ -94,7 +94,7 @@ module "service_sg_with_multi_cidr" {
   source = "terraform-alicloud-modules/security-group/alicloud"
 
   name        = "user-service"
-  description = "Security group for user-service with custom ports open within VPC, and PostgreSQL publicly open"
+  description = "Security group for user-service with custom ports open within VPC"
   vpc_id      = "vpc-12345678"
 
   ingress_cidr_blocks      = ["10.10.0.0/16"]
@@ -129,7 +129,7 @@ module "service_sg_with_ports" {
   source = "terraform-alicloud-modules/security-group/alicloud"
 
   name        = "user-service"
-  description = "Security group for user-service with custom ports open within VPC, and PostgreSQL publicly open"
+  description = "Security group for user-service with custom ports open within VPC"
   vpc_id      = "vpc-12345678"
 
   ingress_cidr_blocks      = ["10.10.0.0/16"]
@@ -148,15 +148,9 @@ module "service_sg_with_source_sg_id" {
   source = "terraform-alicloud-modules/security-group/alicloud"
 
   name        = "user-service"
-  description = "Security group for user-service with custom ports open within VPC, and PostgreSQL publicly open"
+  description = "Security group for user-service with custom rules of source security group."
   vpc_id      = "vpc-12345678"
 
-  ingress_cidr_blocks      = ["10.10.0.0/16"]
-  ingress_rules            = ["https-443-tcp"]
-  
-  ingress_with_ports              = [10, 20, 30]
-  protocol_for_ingress_with_ports = "tcp"
-  priority_for_ingress_with_ports = 2
   ingress_with_source_security_group_id = [
     {
       rule                     = "mysql-tcp"
@@ -172,6 +166,7 @@ module "service_sg_with_source_sg_id" {
       priority                 = 2
     },
   ]
+  
   egress_with_source_security_group_id = [
     {
       rule                     = "mysql-tcp"
