@@ -4,7 +4,7 @@
 
 ```hcl
 module "ssh_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/ssh"
+  source  = "alibaba/security-group/alicloud//modules/ssh"
 
   # omitted...
 }

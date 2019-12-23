@@ -4,7 +4,7 @@
 
 ```hcl
 module "puppet_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/puppet"
+  source  = "alibaba/security-group/alicloud//modules/puppet"
 
   # omitted...
 }

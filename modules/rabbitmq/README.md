@@ -4,7 +4,7 @@
 
 ```hcl
 module "rabbitmq_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/rabbitmq"
+  source  = "alibaba/security-group/alicloud//modules/rabbitmq"
 
   # omitted...
 }

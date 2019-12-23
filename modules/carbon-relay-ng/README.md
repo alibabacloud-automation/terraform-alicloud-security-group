@@ -4,7 +4,8 @@
 
 ```hcl
 module "carbon_relay-ng_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/carbon-relay-ng"
+  source  = "alibaba/security-group/alicloud//modules/carbon-relay-ng"
+  version = "~> 2.0"
 
   # omitted...
 }

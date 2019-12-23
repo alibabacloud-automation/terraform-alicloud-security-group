@@ -4,7 +4,7 @@
 
 ```hcl
 module "kafka_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/kafka"
+  source  = "alibaba/security-group/alicloud//modules/kafka"
 
   # omitted...
 }

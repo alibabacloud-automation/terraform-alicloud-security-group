@@ -4,7 +4,7 @@
 
 ```hcl
 module "redshift_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/redshift"
+  source  = "alibaba/security-group/alicloud//modules/redshift"
 
   # omitted...
 }

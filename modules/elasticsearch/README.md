@@ -4,7 +4,7 @@
 
 ```hcl
 module "elasticsearch_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/elasticsearch"
+  source  = "alibaba/security-group/alicloud//modules/elasticsearch"
 
   # omitted...
 }

@@ -4,7 +4,7 @@
 
 ```hcl
 module "memcached_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/memcached"
+  source  = "alibaba/security-group/alicloud//modules/memcached"
 
   # omitted...
 }

@@ -4,7 +4,7 @@
 
 ```hcl
 module "ntp_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/ntp"
+  source  = "alibaba/security-group/alicloud//modules/ntp"
 
   # omitted...
 }

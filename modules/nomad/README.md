@@ -4,7 +4,7 @@
 
 ```hcl
 module "nomad_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/nomad"
+  source  = "alibaba/security-group/alicloud//modules/nomad"
 
   # omitted...
 }
