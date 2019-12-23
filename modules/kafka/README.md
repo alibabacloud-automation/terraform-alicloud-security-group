@@ -5,6 +5,7 @@
 ```hcl
 module "kafka_security_group" {
   source  = "alibaba/security-group/alicloud//modules/kafka"
+  version = "~> 2.0"
 
   # omitted...
 }

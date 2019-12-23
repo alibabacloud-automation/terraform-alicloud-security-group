@@ -5,6 +5,7 @@
 ```hcl
 module "squid_security_group" {
   source  = "alibaba/security-group/alicloud//modules/squid"
+  version = "~> 2.0"
 
   # omitted...
 }

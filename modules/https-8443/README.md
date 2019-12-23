@@ -5,6 +5,7 @@
 ```hcl
 module "https_8443_security_group" {
   source  = "alibaba/security-group/alicloud//modules/https-8443"
+  version = "~> 2.0"
 
   # omitted...
 }

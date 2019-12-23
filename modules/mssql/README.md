@@ -5,6 +5,7 @@
 ```hcl
 module "mssql_security_group" {
   source  = "alibaba/security-group/alicloud//modules/mssql"
+  version = "~> 2.0"
 
   # omitted...
 }

@@ -5,6 +5,7 @@
 ```hcl
 module "ldaps_security_group" {
   source  = "alibaba/security-group/alicloud//modules/ldaps"
+  version = "~> 2.0"
 
   # omitted...
 }

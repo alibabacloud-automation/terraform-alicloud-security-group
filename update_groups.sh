@@ -124,6 +124,7 @@ EOF
 \`\`\`hcl
 module "${group/-/_}_security_group" {
   source  = "alibaba/security-group/alicloud//modules/${group}"
+  version = "~> 2.0"
 
   # omitted...
 }

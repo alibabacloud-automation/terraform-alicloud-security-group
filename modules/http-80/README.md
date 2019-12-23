@@ -5,6 +5,7 @@
 ```hcl
 module "http_80_security_group" {
   source  = "alibaba/security-group/alicloud//modules/http-80"
+  version = "~> 2.0"
 
   # omitted...
 }

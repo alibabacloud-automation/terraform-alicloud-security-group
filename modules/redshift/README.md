@@ -5,6 +5,7 @@
 ```hcl
 module "redshift_security_group" {
   source  = "alibaba/security-group/alicloud//modules/redshift"
+  version = "~> 2.0"
 
   # omitted...
 }

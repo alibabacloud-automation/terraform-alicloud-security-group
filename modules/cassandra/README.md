@@ -5,6 +5,7 @@
 ```hcl
 module "cassandra_security_group" {
   source  = "alibaba/security-group/alicloud//modules/cassandra"
+  version = "~> 2.0"
 
   # omitted...
 }
