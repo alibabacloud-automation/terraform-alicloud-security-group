@@ -4,7 +4,7 @@
 
 ```hcl
 module "http_8080_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/http-8080"
+  source  = "alibaba/security-group/alicloud//modules/http-8080"
 
   # omitted...
 }

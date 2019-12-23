@@ -4,7 +4,7 @@
 
 ```hcl
 module "redis_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/redis"
+  source  = "alibaba/security-group/alicloud//modules/redis"
 
   # omitted...
 }

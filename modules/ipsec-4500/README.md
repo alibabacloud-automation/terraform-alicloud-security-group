@@ -4,7 +4,7 @@
 
 ```hcl
 module "ipsec_4500_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/ipsec-4500"
+  source  = "alibaba/security-group/alicloud//modules/ipsec-4500"
 
   # omitted...
 }

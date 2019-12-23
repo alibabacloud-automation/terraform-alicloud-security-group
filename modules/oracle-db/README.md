@@ -4,7 +4,7 @@
 
 ```hcl
 module "oracle_db_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/oracle-db"
+  source  = "alibaba/security-group/alicloud//modules/oracle-db"
 
   # omitted...
 }

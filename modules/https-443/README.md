@@ -4,7 +4,7 @@
 
 ```hcl
 module "https_443_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/https-443"
+  source  = "alibaba/security-group/alicloud//modules/https-443"
 
   # omitted...
 }

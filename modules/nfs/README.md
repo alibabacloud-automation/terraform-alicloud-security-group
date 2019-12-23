@@ -4,7 +4,7 @@
 
 ```hcl
 module "nfs_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/nfs"
+  source  = "alibaba/security-group/alicloud//modules/nfs"
 
   # omitted...
 }

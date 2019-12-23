@@ -4,7 +4,7 @@
 
 ```hcl
 module "rdp_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/rdp"
+  source  = "alibaba/security-group/alicloud//modules/rdp"
 
   # omitted...
 }

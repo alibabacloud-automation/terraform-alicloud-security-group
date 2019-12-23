@@ -4,7 +4,7 @@
 
 ```hcl
 module "zookeeper_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/zookeeper"
+  source  = "alibaba/security-group/alicloud//modules/zookeeper"
 
   # omitted...
 }

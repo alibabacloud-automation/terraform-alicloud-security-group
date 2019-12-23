@@ -4,7 +4,7 @@
 
 ```hcl
 module "cassandra_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/cassandra"
+  source  = "alibaba/security-group/alicloud//modules/cassandra"
 
   # omitted...
 }

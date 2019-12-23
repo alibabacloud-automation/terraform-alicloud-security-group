@@ -4,7 +4,7 @@
 
 ```hcl
 module "postgresql_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/postgresql"
+  source  = "alibaba/security-group/alicloud//modules/postgresql"
 
   # omitted...
 }

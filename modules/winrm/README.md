@@ -4,7 +4,7 @@
 
 ```hcl
 module "winrm_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/winrm"
+  source  = "alibaba/security-group/alicloud//modules/winrm"
 
   # omitted...
 }

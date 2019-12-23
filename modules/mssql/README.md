@@ -4,7 +4,7 @@
 
 ```hcl
 module "mssql_security_group" {
-  source  = "terraform-alicloud-modules/security-group/modules/mssql"
+  source  = "alibaba/security-group/alicloud//modules/mssql"
 
   # omitted...
 }
