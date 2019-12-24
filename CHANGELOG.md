@@ -1,3 +1,10 @@
+## 2.1.0 (Unreleased)
+## 2.0.1 (December 24, 2019)
+
+IMPROVEMENTS:
+
+- improve variables' description [GH-24](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/24)
+
 ## 2.0.0 (December 23, 2019)
 
 - **Added:** `examples` [GH-18](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/18)

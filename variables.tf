@@ -26,7 +26,7 @@ variable "skip_region_validation" {
 #################
 
 variable "create" {
-  description = "Whether to create security group, If set `false` you must set `existing_group_id`."
+  description = "Whether to create security group. If false, you can specify an existing security group by setting `existing_group_id`."
   type        = bool
   default     = true
 }
@@ -50,7 +50,7 @@ variable "description" {
 }
 
 variable "existing_group_id" {
-  description = "ID of existing security group. If set, you should specify `create` as false to avoid creating redundant security group. (If this field has been set, you can set `create` to false at any time.)"
+  description = "ID of existing security group. If set, the `create` will be ignored."
   default     = ""
 }
 
@@ -185,42 +185,42 @@ variable "default_egress_priority" {
 
 # Deprecated variables
 variable "this_module_name" {
-  description = "(Deprecated) It has been deprecated from 1.6.0, and use `name` instead."
+  description = "(Deprecated) It has been deprecated from 2.0.0, and use `name` instead."
   default     = ""
 }
 variable "vpc_name" {
-  description = "(Deprecated) It has been deprecated from 1.6.0."
+  description = "(Deprecated) It has been deprecated from 2.0.0."
   default     = ""
 }
 
 variable "vpc_cidr" {
-  description = "(Deprecated) It has been deprecated from 1.6.0."
+  description = "(Deprecated) It has been deprecated from 2.0.0."
   default     = ""
 }
 
 variable "group_id" {
-  description = "(Deprecated) It has been deprecated from 1.6.0, and use `existing_group_id` instead."
+  description = "(Deprecated) It has been deprecated from 2.0.0, and use `existing_group_id` instead."
   default     = ""
 }
 
 variable "group_name" {
-  description = "(Deprecated) It has been deprecated from 1.6.0 and use 'name' instead."
+  description = "(Deprecated) It has been deprecated from 2.0.0 and use 'name' instead."
   default     = ""
 }
 
 variable "group_description" {
-  description = "(Deprecated) It has been deprecated from 1.6.0 and use 'name' instead."
+  description = "(Deprecated) It has been deprecated from 2.0.0 and use 'name' instead."
   default     = ""
 }
 
 variable "protocol" {
-  description = "(Deprecated) It has been deprecated from 1.6.0, and use `protocol_for_ingress_with_ports` and `protocol_for_egress_with_ports` instead."
+  description = "(Deprecated) It has been deprecated from 2.0.0, and use `protocol_for_ingress_with_ports` and `protocol_for_egress_with_ports` instead."
   type        = string
   default     = "tcp"
 }
 
 variable "priority" {
-  description = "(Deprecated) It has been deprecated from 1.6.0, and use `default_ingress_priority` and `default_egress_priority` instead."
+  description = "(Deprecated) It has been deprecated from 2.0.0, and use `default_ingress_priority` and `default_egress_priority` instead."
   type        = number
   default     = 1
 }
