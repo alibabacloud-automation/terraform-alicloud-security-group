@@ -1,4 +1,12 @@
-## 2.1.0 (Unreleased)
+## 2.2.0 (Unreleased)
+## 2.1.0 (February 2, 2020)
+
+IMPROVEMENTS:
+
+- rollback random uuid [GH-28](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/28)
+- update modules using the latest parameters [GH-27](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/27)
+- improve with_cidr_blocks and with_ports [GH-26](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/27)
+
 ## 2.0.1 (December 24, 2019)
 
 IMPROVEMENTS:
