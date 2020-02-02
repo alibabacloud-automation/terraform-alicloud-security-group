@@ -1,4 +1,4 @@
-Alicloud ECS Security Group Terraform Module In VPC
+Alicloud ECS Security Group Terraform Module In VPC   
 terraform-alicloud-security-group
 ================================================================================
 
@@ -54,40 +54,6 @@ module "web_server_sg" {
 }
 ```
 
-### Security group with custom rules of single cidr block
-
-```hcl
-module "service_sg_with_single_cidr" {
-  source = "alibaba/security-group/alicloud"
-
-  name        = "user-service"
-  description = "Security group for user-service with custom ports open within VPC, and PostgreSQL publicly open"
-  vpc_id      = "vpc-12345678"
-
-  ingress_cidr_blocks      = ["10.10.0.0/16"]
-  ingress_rules            = ["https-443-tcp"]
-  ingress_with_cidr_block  = [
-    {
-      from_port   = 8080
-      to_port     = 8090
-      protocol    = "tcp"
-      description = "User-service ports"
-      cidr_block = "10.10.0.0/16"
-    },
-    {
-      rule        = "postgresql-tcp"
-      cidr_block = "0.0.0.0/0"
-    },
-  ]
-  egress_with_cidr_block = [
-    {
-      rule       = "postgresql-tcp"
-      cidr_block = "2.2.2.2/32"
-    },
-  ]
-}
-```
-
 ### Security group with custom rules of multiple cidr blocks
 
 ```hcl
@@ -106,11 +72,20 @@ module "service_sg_with_multi_cidr" {
       to_port     = 8090
       protocol    = "tcp"
       description = "User-service ports"
+      cidr_blocks = "10.10.0.0/16,10.11.0.0/16,10.12.0.0/16"
+      priority    = 2
     },
     {
       rule        = "postgresql-tcp"
+      priority    = 2
+      cidr_blocks = "10.13.0.0/16,10.14.0.0/16"
+    },
+    {
+      // Using ingress_cidr_blocks to set cidr_blocks
+      rule = "postgresql-tcp"
     },
   ]
+  egress_cidr_blocks      = ["10.10.0.0/16"]
   egress_with_cidr_blocks = [
     {
       from_port   = 8080
@@ -118,7 +93,12 @@ module "service_sg_with_multi_cidr" {
       protocol    = "tcp"
       description = "User-service ports"
       priority    = 1
-    }
+      cidr_blocks = "10.13.0.0/16,10.14.0.0/16"
+    },
+    {
+      // Using egress_cidr_blocks to set cidr_blocks
+      rule = "postgresql-tcp"
+    },
   ]
 }
 ```
@@ -136,9 +116,27 @@ module "service_sg_with_ports" {
   ingress_cidr_blocks      = ["10.10.0.0/16"]
   ingress_rules            = ["https-443-tcp"]
   
-  ingress_with_ports              = [10, 20, 30]
-  protocol_for_ingress_with_ports = "tcp"
-  priority_for_ingress_with_ports = 2
+  ingress_ports = [50, 150]
+  ingress_with_cidr_blocks_and_ports = [
+    {
+      ports       = "10,20,30"
+      protocol    = "tcp"
+      priority    = 1
+      cidr_blocks = "10.10.0.0/20,10.11.0.0/20"
+    },
+    {
+      # Using ingress_ports to set ports
+      protocol    = "udp"
+      description = "ingress for tcp"
+      cidr_blocks = "172.10.0.0/20"
+    },
+    {
+      # Using ingress_ports and ingress_cidr_blocks to set ports and cidr_blocks
+      protocol    = "icmp"
+      priority    = 20
+      description = "ingress for icmp"
+    }
+  ]
 }
 ```
 
