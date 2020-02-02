@@ -1,6 +1,6 @@
 locals {
   # set a default sg name
-  default_name = "terraform-sg-${random_uuid.this.result}"
+  default_name = "terraform-sg-random_uuid.this.result"
   group_name   = var.group_name != "" ? var.group_name : var.this_module_name != "" ? var.this_module_name : var.name != "" ? var.name : local.default_name
   description  = var.group_description != "" ? var.group_description : var.description
 
@@ -11,4 +11,4 @@ locals {
   create_rules = var.existing_group_id != "" || var.create ? true : false
 }
 
-resource "random_uuid" "this" {}
+//resource "random_uuid" "this" {}
