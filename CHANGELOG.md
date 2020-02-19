@@ -1,4 +1,5 @@
-## 2.2.0 (Unreleased)
+## 2.3.0 (Unreleased)
+## 2.2.0 (February 19, 2020)
 
 IMPROVEMENTS:
 
