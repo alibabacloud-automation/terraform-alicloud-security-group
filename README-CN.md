@@ -24,9 +24,9 @@ terraform-alicloud-security-group
 
 ## Terraform 版本
 
-如果您正在使用 Terraform 0.12，请使用此模块的对应版本`v2.*`.
+如果您正在使用 Terraform 0.12，请使用此模块的对应版本`v2.*`。
 
-如果您正在使用 Terraform 0.11，请使用此模块的对应版本`v1.*`.
+如果您正在使用 Terraform 0.11，请使用此模块的对应版本`v1.*`。
 
 ## 用法
 
@@ -208,6 +208,12 @@ module "vote_service_sg" {
 ## 如何添加/更新安全组入网规则
 
 规则与安全组定义于 [rules.tf](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/rules.tf)。如果修改了该文件，并想将其应用到所有的已经生成的规则上，可直接运行 `update_groups.sh`.
+
+提交问题
+-------
+如果在使用该 Terraform Module 的过程中有任何问题，可以直接创建一个 [Provider Issue](https://github.com/terraform-providers/terraform-provider-alicloud/issues/new)，我们将根据问题描述提供解决方案。
+
+**注意:** 不建议在该 Module 仓库中直接提交 Issue。
 
 作者
 -------
