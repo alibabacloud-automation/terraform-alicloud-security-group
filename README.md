@@ -216,6 +216,12 @@ module "vote_service_sg" {
 
 Rules and groups are defined in [rules.tf](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/rules.tf). Run `update_groups.sh` when content of that file has changed to recreate content of all automatic modules.
 
+Submit Issues
+-------------
+If you have any problems when using this module, please opening a [provider issue](https://github.com/terraform-providers/terraform-provider-alicloud/issues/new) and let us know.
+
+**Note:** There does not recommend to open an issue on this repo.
+
 Authors
 -------
 Created and maintained by He Guimin(@xiaozhu36 heguimin36@163.com)
