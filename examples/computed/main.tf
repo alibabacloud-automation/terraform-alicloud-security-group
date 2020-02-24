@@ -1,9 +1,13 @@
+variable "profile" {
+  default = "default"
+}
 variable "region" {
   default = "cn-hangzhou"
 }
 
 provider "alicloud" {
-  region = var.region
+  region  = var.region
+  profile = var.profile
 }
 
 #############################################################
@@ -23,8 +27,9 @@ data "alicloud_security_groups" "default" {
 # Security groups examples
 ###########################
 module "http_sg" {
-  source = "../../modules/https-443"
-  region = var.region
+  source  = "../../modules/https-443"
+  profile = "Your-Profile-Name"
+  region  = var.region
 
   name        = "computed-http-sg"
   description = "Security group with HTTP port open for everyone, and HTTPS open just for the default security group"
@@ -41,8 +46,9 @@ module "http_sg" {
 }
 
 module "mysql_sg" {
-  source = "../../modules/mysql"
-  region = var.region
+  source  = "../../modules/mysql"
+  profile = "Your-Profile-Name"
+  region  = var.region
 
   name        = "computed-mysql-sg"
   description = "Security group with MySQL/Aurora port open for HTTP security group created above (computed)"

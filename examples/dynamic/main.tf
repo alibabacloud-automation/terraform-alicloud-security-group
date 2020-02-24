@@ -1,9 +1,13 @@
+variable "profile" {
+  default = "default"
+}
 variable "region" {
   default = "cn-hangzhou"
 }
 
 provider "alicloud" {
-  region = var.region
+  region  = var.region
+  profile = var.profile
 }
 
 #############################################################
@@ -26,8 +30,9 @@ data "alicloud_security_groups" "default" {
 # HTTP
 #######
 module "http_sg" {
-  source = "../../modules/http-80"
-  region = var.region
+  source  = "../../modules/http-80"
+  profile = var.profile
+  region  = var.region
 
   name        = "dynamic-http-sg"
   description = "Security group with HTTP port open for everyone, and HTTPS open just for the default security group"

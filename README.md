@@ -44,7 +44,10 @@ There are three ways to create security groups using this module:
 
 ```hcl
 module "web_server_sg" {
-  source = "alibaba/security-group/alicloud//modules/http-80"
+  source  = "alibaba/security-group/alicloud//modules/http-80"
+  profile = "Your-Profile-Name"
+  region  = "cn-beijing"
+
 
   name        = "web-server"
   description = "Security group for web-server with HTTP ports open within VPC"
@@ -58,7 +61,9 @@ module "web_server_sg" {
 
 ```hcl
 module "service_sg_with_multi_cidr" {
-  source = "alibaba/security-group/alicloud"
+  source  = "alibaba/security-group/alicloud"
+  profile = "Your-Profile-Name"
+  region  = "cn-beijing"
 
   name        = "user-service"
   description = "Security group for user-service with custom ports open within VPC"
@@ -107,7 +112,9 @@ module "service_sg_with_multi_cidr" {
 
 ```hcl
 module "service_sg_with_ports" {
-  source = "alibaba/security-group/alicloud"
+  source  = "alibaba/security-group/alicloud"
+  profile = "Your-Profile-Name"
+  region  = "cn-beijing"
 
   name        = "user-service"
   description = "Security group for user-service with custom ports open within VPC"
@@ -144,7 +151,10 @@ module "service_sg_with_ports" {
 
 ```hcl
 module "service_sg_with_source_sg_id" {
-  source = "alibaba/security-group/alicloud"
+  source  = "alibaba/security-group/alicloud"
+  profile = "Your-Profile-Name"
+  region  = "cn-beijing"
+
 
   name        = "user-service"
   description = "Security group for user-service with custom rules of source security group."
@@ -182,7 +192,9 @@ Sometimes you need to have a way to create security group conditionally but Terr
 ```hcl
 # This security group will not be created
 module "vote_service_sg" {
-  source = "alibaba/security-group/alicloud"
+  source  = "alibaba/security-group/alicloud"
+  profile = "Your-Profile-Name"
+  region  = "cn-beijing"
 
   create = false
   # ... omitted
@@ -194,7 +206,9 @@ Sometimes you need to have a way to use a existing security group conditionally,
 ```hcl
 # This security group will not be created
 module "vote_service_sg" {
-  source = "alibaba/security-group/alicloud"
+  source  = "alibaba/security-group/alicloud"
+  profile = "Your-Profile-Name"
+  region  = "cn-beijing"
 
   existing_group_id = "sg-1234567"
   
