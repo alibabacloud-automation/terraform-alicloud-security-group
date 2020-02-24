@@ -1,4 +1,10 @@
 ## 2.3.0 (Unreleased)
+## 2.2.1 (February 24, 2020)
+
+IMPROVEMENTS:
+
+- add profile for readme and examples [GH-31](https://github.com/terraform-alicloud-modules/terraform-alicloud-vpc/pull/31)
+
 ## 2.2.0 (February 19, 2020)
 
 IMPROVEMENTS:
