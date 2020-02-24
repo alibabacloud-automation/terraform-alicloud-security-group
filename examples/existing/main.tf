@@ -1,9 +1,13 @@
+variable "profile" {
+  default = "default"
+}
 variable "region" {
   default = "cn-hangzhou"
 }
 
 provider "alicloud" {
-  region = var.region
+  region  = var.region
+  profile = var.profile
 }
 
 #############################################################
@@ -23,9 +27,9 @@ data "alicloud_security_groups" "default" {
 # Security groups WILL NOT be created and WILL use a existing one by these examples
 ########################################################
 module "complete_sg_using_existing" {
-  source = "../../"
-
-  region = var.region
+  source  = "../../"
+  profile = var.profile
+  region  = var.region
 
   existing_group_id = data.alicloud_security_groups.default.ids.0
 
@@ -38,9 +42,9 @@ module "complete_sg_using_existing" {
 }
 
 module "http_sg_using_existing" {
-  source = "../../modules/http-80"
-
-  region = var.region
+  source  = "../../modules/http-80"
+  profile = var.profile
+  region  = var.region
 
   existing_group_id = data.alicloud_security_groups.default.ids.0
 

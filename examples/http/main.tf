@@ -1,9 +1,13 @@
+variable "profile" {
+  default = "default"
+}
 variable "region" {
   default = "cn-hangzhou"
 }
 
 provider "alicloud" {
-  region = var.region
+  region  = var.region
+  profile = var.profile
 }
 
 #############################################################
@@ -27,9 +31,9 @@ data "alicloud_security_groups" "default" {
 # HTTP
 #######
 module "http_sg" {
-  source = "../../modules/http-80"
-
-  region = var.region
+  source  = "../../modules/http-80"
+  profile = var.profile
+  region  = var.region
 
   name        = "http-sg"
   description = "Security group with HTTP ports open for everybody (IPv4 CIDR), egress ports are all world open"
@@ -42,9 +46,9 @@ module "http_sg" {
 # HTTP with MySQL #1
 #####################
 module "http_mysql_1_sg" {
-  source = "../../modules/http-80"
-
-  region = var.region
+  source  = "../../modules/http-80"
+  profile = var.profile
+  region  = var.region
 
   name = "http-mysql-1"
 
@@ -61,9 +65,9 @@ module "http_mysql_1_sg" {
 # HTTP with MySQL #2
 #####################
 module "http_mysql_2_sg" {
-  source = "../../modules/http-80"
-
-  region = var.region
+  source  = "../../modules/http-80"
+  profile = var.profile
+  region  = var.region
 
   name        = "http-mysql-2"
   description = "Security group with HTTP and MySQL ports open within current VPC"
@@ -80,9 +84,9 @@ module "http_mysql_2_sg" {
 # HTTP with egress minimal
 ###########################
 module "http_with_egress_minimal_sg" {
-  source = "../../modules/http-80"
-
-  region = var.region
+  source  = "../../modules/http-80"
+  profile = var.profile
+  region  = var.region
 
   name        = "http-with-egress-minimal"
   description = "Security group with HTTP ports open within current VPC, and allow egress access to HTTP ports to the whole world"
@@ -99,9 +103,9 @@ module "http_with_egress_minimal_sg" {
 # HTTP with egress limited
 ###########################
 module "http_with_egress_sg" {
-  source = "../../modules/http-80"
-
-  region = var.region
+  source  = "../../modules/http-80"
+  profile = var.profile
+  region  = var.region
 
   name        = "http-with-egress"
   description = "Security group with HTTP ports open within current VPC, and allow egress access just to small subnet"

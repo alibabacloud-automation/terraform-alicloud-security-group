@@ -1,9 +1,13 @@
+variable "profile" {
+  default = "default"
+}
 variable "region" {
   default = "cn-hangzhou"
 }
 
 provider "alicloud" {
-  region = var.region
+  region  = var.region
+  profile = var.profile
 }
 
 #############################################################
@@ -24,6 +28,7 @@ data "alicloud_security_groups" "default" {
 #############################################################
 module "main_sg" {
   source = "../../"
+  profile = var.profile
 
   region = var.region
 
@@ -40,6 +45,7 @@ module "main_sg" {
 ################################################
 module "complete_sg" {
   source = "../../"
+  profile = var.profile
 
   region = var.region
 
