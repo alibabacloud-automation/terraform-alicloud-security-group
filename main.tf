@@ -8,11 +8,12 @@ provider "alicloud" {
 
 // Create a new Security Group Resource for Module
 resource "alicloud_security_group" "this" {
-  count       = var.existing_group_id != "" ? 0 : var.create ? 1 : 0
-  name        = local.group_name
-  vpc_id      = var.vpc_id
-  description = local.description
-  tags        = var.tags
+  count               = var.existing_group_id != "" ? 0 : var.create ? 1 : 0
+  name                = local.group_name
+  vpc_id              = var.vpc_id
+  description         = local.description
+  tags                = var.tags
+  security_group_type = var.security_group_type
 }
 
 ###################################

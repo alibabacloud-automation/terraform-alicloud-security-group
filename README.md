@@ -187,6 +187,21 @@ module "service_sg_with_source_sg_id" {
 
 ## Conditional creation
 
+Create an enterprise Security Group
+
+```hcl
+module "web_server_sg" {
+  source = "alibaba/security-group/alicloud//modules/http-80"
+  region  = "cn-hangzhou"
+  profile = "Your-Profile-Name"
+
+  name                = "web-server"
+  description         = "An enterprise security group created by terraform."
+  vpc_id              = "vpc-12345678"
+  security_group_type = "enterprise"
+}
+```
+
 Sometimes you need to have a way to create security group conditionally but Terraform does not allow to use `count` inside `module` block, so the solution is to specify argument `create`.
 
 ```hcl
@@ -225,6 +240,7 @@ module "vote_service_sg" {
 * [Existing creation of Security Group example](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/disabled) shows how to disable creation of security group and use a existing security group.
 * [Dynamic values inside Security Group rules example](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/dynamic) shows how to specify values inside security group rules (data-sources and variables are allowed).
 * [Computed values inside Security Group rules example](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/computed) shows how to specify computed values inside security group rules (solution for `value of 'count' cannot be computed` problem).
+* [Enterprise Security Group example](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/enterprise-group) shows how to create an enterprise security group.
 
 ## How to add/update rules/groups?
 

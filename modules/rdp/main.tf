@@ -10,6 +10,7 @@ module "sg" {
   description             = var.description
   existing_group_id       = var.existing_group_id
   tags                    = var.tags
+  security_group_type     = var.security_group_type
 
 
   ##########

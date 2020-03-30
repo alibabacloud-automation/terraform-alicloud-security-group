@@ -178,6 +178,21 @@ module "service_sg_with_source_sg_id" {
 
 ## 条件判断
 
+创建一个企业级安全组。
+
+```hcl
+module "web_server_sg" {
+  source = "alibaba/security-group/alicloud//modules/http-80"
+  region  = "cn-hangzhou"
+  profile = "Your-Profile-Name"
+
+  name                = "web-server"
+  description         = "An enterprise security group created by terraform."
+  vpc_id              = "vpc-12345678"
+  security_group_type = "enterprise"
+}
+```
+
 有时可能不需要创建一个新的安全组，但是 Terraform Module 中又不能指定 `count`，此时可以之间通过设置 `create = false` 来实现。
 
 ```hcl
@@ -216,6 +231,7 @@ module "vote_service_sg" {
 * [使用现有安全组添加规则示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/disabled) shows how to disable creation of security group and use a existing security group.
 * [使用动态安全组增加入网规则示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/dynamic) shows how to specify values inside security group rules (data-sources and variables are allowed).
 * [新增的安全组来指定源安全组ID示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/computed) shows how to specify computed values inside security group rules (solution for `value of 'count' cannot be computed` problem).
+* [创建企业级安全组示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/enterprise-group) shows how to create an enterprise security group.
 
 ## 如何添加/更新安全组入网规则
 

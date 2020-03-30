@@ -1,4 +1,9 @@
 ## 2.3.0 (Unreleased)
+
+IMPROVEMENTS:
+
+- Supports `security_group_type` parameter.[GH-32](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/32)
+
 ## 2.2.1 (February 24, 2020)
 
 IMPROVEMENTS:
