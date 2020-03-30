@@ -65,6 +65,12 @@ variable "tags" {
   default     = {}
 }
 
+variable "security_group_type" {
+  description = "The type of the security group. Valid values: 'normal'(basic security group.), 'enterprise'(advanced security group For more information.). Default to 'normal'."
+  type        = string
+  default     = "normal"
+}
+
 ##########
 # Ingress
 ##########
