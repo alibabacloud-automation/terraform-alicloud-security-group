@@ -232,6 +232,11 @@ module "vote_service_sg" {
 }
 ```
 
+## Notes
+
+* This module using AccessKey and SecretKey are from `profile` and `shared_credentials_file`.
+If you have not set them yet, please install [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) and configure it.
+
 ## Examples
 
 * [Complete Security Group example](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/complete) shows all available parameters to configure security group.
