@@ -223,6 +223,10 @@ module "vote_service_sg" {
 }
 ```
 
+## 注意事项
+
+* 本 Module 使用的 AccessKey 和 SecretKey 可以直接从 `profile` 和 `shared_credentials_file` 中获取。如果未设置，可通过下载安装 [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) 后进行配置。
+
 ## 示例
 
 * [完整的安全组规则使用示例](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/tree/master/examples/complete) shows all available parameters to configure security group.
