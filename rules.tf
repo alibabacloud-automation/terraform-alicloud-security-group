@@ -205,11 +205,6 @@ variable "auto_groups" {
       ingress_with_self = ["all-all"]
       egress_rules      = ["all-all"]
     }
-    mssql = {
-      ingress_rules     = ["mssql-tcp", "mssql-udp", "mssql-analytics-tcp", "mssql-broker-tcp"]
-      ingress_with_self = ["all-all"]
-      egress_rules      = ["all-all"]
-    }
     nfs = {
       ingress_rules     = ["nfs-tcp"]
       ingress_with_self = ["all-all"]
