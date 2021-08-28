@@ -53,12 +53,7 @@ variable "rules" {
     mongodb-27018-tcp = [27018, 27018, "tcp", "MongoDB shard"]
     mongodb-27019-tcp = [27019, 27019, "tcp", "MongoDB config server"]
     # MySQL
-    mysql-tcp = [3306, 3306, "tcp", "MySQL/Aurora"]
-    # MSSQL Server
-    mssql-tcp           = [1433, 1433, "tcp", "MSSQL Server"]
-    mssql-udp           = [1434, 1434, "udp", "MSSQL Browser"]
-    mssql-analytics-tcp = [2383, 2383, "tcp", "MSSQL Analytics"]
-    mssql-broker-tcp    = [4022, 4022, "tcp", "MSSQL Broker"]
+    mysql-tcp = [3306, 3306, "tcp", "MySQL"]
     # NFS/EFS
     nfs-tcp = [2049, 2049, "tcp", "NFS/EFS"]
     # Nomad
