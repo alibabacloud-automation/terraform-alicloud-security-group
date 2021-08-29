@@ -22,12 +22,6 @@ terraform-alicloud-security-group
 
 如果在使用过程中，发现 Module 有错误或者有无法满足您的需求，可以直接提交Issues：[open an issue](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/issues/new).
 
-## Terraform 版本
-
-如果您正在使用 Terraform 0.12，请使用此模块的对应版本`v2.*`。
-
-如果您正在使用 Terraform 0.11，请使用此模块的对应版本`v1.*`。
-
 ## 用法
 
 本 Module 支持以下几种方式来创建安全组及安全组规则:
@@ -224,8 +218,82 @@ module "vote_service_sg" {
 ```
 
 ## 注意事项
+本Module从版本v2.4.0开始已经移除掉如下的 provider 的显示设置：
 
-* 本 Module 使用的 AccessKey 和 SecretKey 可以直接从 `profile` 和 `shared_credentials_file` 中获取。如果未设置，可通过下载安装 [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) 后进行配置。
+```hcl
+provider "alicloud" {
+  profile                 = var.profile != "" ? var.profile : null
+  shared_credentials_file = var.shared_credentials_file != "" ? var.shared_credentials_file : null
+  region                  = var.region != "" ? var.region : null
+  skip_region_validation  = var.skip_region_validation
+  configuration_source    = "terraform-alicloud-modules/security-group"
+}
+```
+
+如果你依然想在Module中使用这个 provider 配置，你可以在调用Module的时候，指定一个特定的版本，比如 2.3.0:
+
+```hcl
+module "web_server_sg" {
+  source  = "alibaba/security-group/alicloud"
+
+  version     = "2.3.0"
+  region      = "cn-hangzhou"
+  profile     = "Your-Profile-Name"
+
+  name        = "web-server"
+  description = "Security group for web-server with HTTP ports open within VPC"
+  vpc_id      = "vpc-12345678"
+
+  ingress_cidr_blocks = ["10.10.0.0/16"]
+  // ...
+}
+```
+
+如果你想对正在使用中的Module升级到 2.4.0 或者更高的版本，那么你可以在模板中显示定义一个系统过Region的provider：
+```hcl
+provider "alicloud" {
+  region  = "cn-hangzhou"
+  profile = "Your-Profile-Name"
+}
+module "web_server_sg" {
+  source  = "alibaba/security-group/alicloud"
+
+  name        = "web-server"
+  description = "Security group for web-server with HTTP ports open within VPC"
+  vpc_id      = "vpc-12345678"
+
+  ingress_cidr_blocks = ["10.10.0.0/16"]
+  // ...
+}
+```
+或者，如果你是多Region部署，你可以利用 `alias` 定义多个 provider，并在Module中显示指定这个provider：
+
+```hcl
+provider "alicloud" {
+  region  = "cn-hangzhou"
+  profile = "Your-Profile-Name"
+  alias   = "hz"
+}
+
+module "web_server_sg" {
+  source  = "alibaba/security-group/alicloud"
+
+  providers = {
+    alicloud = alicloud.hz
+  }
+
+  name        = "web-server"
+  description = "Security group for web-server with HTTP ports open within VPC"
+  vpc_id      = "vpc-12345678"
+
+  ingress_cidr_blocks = ["10.10.0.0/16"]
+  // ...
+}
+```
+
+定义完provider之后，运行命令 `terraform init` 和 `terraform apply` 来让这个provider生效即可。
+
+更多provider的使用细节，请移步[How to use provider in the module](https://www.terraform.io/docs/language/modules/develop/providers.html#passing-providers-explicitly)
 
 ## 示例
 
@@ -240,6 +308,13 @@ module "vote_service_sg" {
 ## 如何添加/更新安全组入网规则
 
 规则与安全组定义于 [rules.tf](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/rules.tf)。如果修改了该文件，并想将其应用到所有的已经生成的规则上，可直接运行 `update_groups.sh`.
+
+## Terraform 版本
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.0 |
+| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.56.0 |
 
 提交问题
 -------

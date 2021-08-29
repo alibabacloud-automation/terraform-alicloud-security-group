@@ -1,4 +1,9 @@
-## 2.4.0 (Unreleased)
+## 2.5.0 (Unreleased)
+## 2.4.0 (August 29, 2021)
+
+IMPROVEMENTS:
+- Removes the provider setting and improves the Readme [GH-34](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/pull/34)
+
 ## 2.3.0 (March 30, 2020)
 
 IMPROVEMENTS:

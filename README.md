@@ -24,12 +24,6 @@ Ingress and egress rules can be configured in a variety of ways. See [inputs var
 
 If there is a missing feature or a bug - [open an issue](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/issues/new).
 
-## Terraform versions
-
-For Terraform 0.12 use version `v2.*` of this module.
-
-If you are using Terraform 0.11 you can use versions `v1.*`.
-
 ## Usage
 
 There are three ways to create security groups using this module:
@@ -45,9 +39,6 @@ There are three ways to create security groups using this module:
 ```hcl
 module "web_server_sg" {
   source  = "alibaba/security-group/alicloud//modules/http-80"
-  profile = "Your-Profile-Name"
-  region  = "cn-beijing"
-
 
   name        = "web-server"
   description = "Security group for web-server with HTTP ports open within VPC"
@@ -62,8 +53,6 @@ module "web_server_sg" {
 ```hcl
 module "service_sg_with_multi_cidr" {
   source  = "alibaba/security-group/alicloud"
-  profile = "Your-Profile-Name"
-  region  = "cn-beijing"
 
   name        = "user-service"
   description = "Security group for user-service with custom ports open within VPC"
@@ -113,8 +102,6 @@ module "service_sg_with_multi_cidr" {
 ```hcl
 module "service_sg_with_ports" {
   source  = "alibaba/security-group/alicloud"
-  profile = "Your-Profile-Name"
-  region  = "cn-beijing"
 
   name        = "user-service"
   description = "Security group for user-service with custom ports open within VPC"
@@ -152,9 +139,6 @@ module "service_sg_with_ports" {
 ```hcl
 module "service_sg_with_source_sg_id" {
   source  = "alibaba/security-group/alicloud"
-  profile = "Your-Profile-Name"
-  region  = "cn-beijing"
-
 
   name        = "user-service"
   description = "Security group for user-service with custom rules of source security group."
@@ -192,8 +176,6 @@ Create an enterprise Security Group
 ```hcl
 module "web_server_sg" {
   source = "alibaba/security-group/alicloud//modules/http-80"
-  region  = "cn-hangzhou"
-  profile = "Your-Profile-Name"
 
   name                = "web-server"
   description         = "An enterprise security group created by terraform."
@@ -208,8 +190,6 @@ Sometimes you need to have a way to create security group conditionally but Terr
 # This security group will not be created
 module "vote_service_sg" {
   source  = "alibaba/security-group/alicloud"
-  profile = "Your-Profile-Name"
-  region  = "cn-beijing"
 
   create = false
   # ... omitted
@@ -222,8 +202,6 @@ Sometimes you need to have a way to use a existing security group conditionally,
 # This security group will not be created
 module "vote_service_sg" {
   source  = "alibaba/security-group/alicloud"
-  profile = "Your-Profile-Name"
-  region  = "cn-beijing"
 
   existing_group_id = "sg-1234567"
   
@@ -233,9 +211,84 @@ module "vote_service_sg" {
 ```
 
 ## Notes
+From the version v2.4.0, the module has removed the following `provider` setting:
 
-* This module using AccessKey and SecretKey are from `profile` and `shared_credentials_file`.
-If you have not set them yet, please install [aliyun-cli](https://github.com/aliyun/aliyun-cli#installation) and configure it.
+```hcl
+provider "alicloud" {
+  profile                 = var.profile != "" ? var.profile : null
+  shared_credentials_file = var.shared_credentials_file != "" ? var.shared_credentials_file : null
+  region                  = var.region != "" ? var.region : null
+  skip_region_validation  = var.skip_region_validation
+  configuration_source    = "terraform-alicloud-modules/security-group"
+}
+```
+
+If you still want to use the `provider` setting to apply this module, you can specify a supported version, like 2.3.0:
+
+```hcl
+module "web_server_sg" {
+  source  = "alibaba/security-group/alicloud"
+
+  version     = "2.3.0"
+  region      = "cn-hangzhou"
+  profile     = "Your-Profile-Name"
+
+  name        = "web-server"
+  description = "Security group for web-server with HTTP ports open within VPC"
+  vpc_id      = "vpc-12345678"
+
+  ingress_cidr_blocks = ["10.10.0.0/16"]
+  // ...
+}
+```
+
+If you want to upgrade the module to 2.4.0 or higher in-place, you can define a provider which same region with
+previous region:
+
+```hcl
+provider "alicloud" {
+   region  = "cn-hangzhou"
+   profile = "Your-Profile-Name"
+}
+module "web_server_sg" {
+  source  = "alibaba/security-group/alicloud"
+
+  name        = "web-server"
+  description = "Security group for web-server with HTTP ports open within VPC"
+  vpc_id      = "vpc-12345678"
+
+  ingress_cidr_blocks = ["10.10.0.0/16"]
+  // ...
+}
+```
+or specify an alias provider with a defined region to the module using `providers`:
+
+```hcl
+provider "alicloud" {
+  region  = "cn-hangzhou"
+  profile = "Your-Profile-Name"
+  alias   = "hz"
+}
+
+module "web_server_sg" {
+  source  = "alibaba/security-group/alicloud"
+
+  providers = {
+    alicloud = alicloud.hz
+  }
+  
+  name        = "web-server"
+  description = "Security group for web-server with HTTP ports open within VPC"
+  vpc_id      = "vpc-12345678"
+
+  ingress_cidr_blocks = ["10.10.0.0/16"]
+  // ...
+}
+```
+
+and then run `terraform init` and `terraform apply` to make the defined provider effect to the existing module state.
+
+More details see [How to use provider in the module](https://www.terraform.io/docs/language/modules/develop/providers.html#passing-providers-explicitly)
 
 ## Examples
 
@@ -250,6 +303,19 @@ If you have not set them yet, please install [aliyun-cli](https://github.com/ali
 ## How to add/update rules/groups?
 
 Rules and groups are defined in [rules.tf](https://github.com/terraform-alicloud-modules/terraform-alicloud-security-group/blob/master/rules.tf). Run `update_groups.sh` when content of that file has changed to recreate content of all automatic modules.
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.0 |
+| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.56.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_alicloud"></a> [alicloud](#provider\_alicloud) | >= 1.56.0 |
 
 Submit Issues
 -------------
