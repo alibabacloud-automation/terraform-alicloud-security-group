@@ -69,6 +69,11 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+variable "resource_group_id" {
+  description = "Id of Resource group"
+  type        = string
+  default     = null
+}
 
 ##########
 # Ingress
