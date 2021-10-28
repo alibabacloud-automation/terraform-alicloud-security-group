@@ -6,6 +6,7 @@ resource "alicloud_security_group" "this" {
   description         = local.description
   security_group_type = var.security_group_type
   tags                = var.tags
+  resource_group_id   = var.resource_group_id
 }
 
 ###################################
