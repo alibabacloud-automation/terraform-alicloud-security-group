@@ -133,7 +133,7 @@ locals {
     [
       for _, obj in var.ingress_with_source_security_group_id : {
         source_security_group_id = lookup(obj, "source_security_group_id", "")
-        priority                 = lookup(obj, "priority", var.default_egress_priority)
+        priority                 = lookup(obj, "priority", var.default_ingress_priority)
         from_port                = lookup(obj, "from_port", lookup(obj, "rule", null) == null ? 0 : var.rules[lookup(obj, "rule", "_")][0])
         to_port                  = lookup(obj, "to_port", lookup(obj, "rule", null) == null ? 0 : var.rules[lookup(obj, "rule", "_")][1])
         protocol                 = lookup(obj, "protocol", lookup(obj, "rule", null) == null ? "" : var.rules[lookup(obj, "rule", "_")][2])
