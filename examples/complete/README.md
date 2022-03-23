@@ -1,8 +1,6 @@
-# Complete Security Group example
+# Complete
 
-Configuration in this directory creates set of Security Group and Security Group Rules resources in various combinations.
-
-Data sources are used to discover existing VPC resources (VPC and default security group).
+Configuration in this directory creates set of Security Group and Security Group Rules resources.
 
 ## Usage
 
@@ -16,14 +14,19 @@ $ terraform apply
 
 Note that this example may create resources which cost money. Run `terraform destroy` when you don't need these resources.
 
+This example provides the tf variables file in the folder `tfvars`. If you want to create or update this example,
+you can run this example as the following commands:
+```bash
+$ terraform plan -var-file=tfvars/01-update.tfvars
+$ terraform apply -var-file=tfvars/01-update.tfvars
+```
+
+Also, you can add more variables files in the folder `tfvars`.
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Outputs
+## Requirements
 
-| Name | Description |
-|------|-------------|
-| this\_security\_group\_description | The description of the security group |
-| this\_security\_group\_id | The ID of the security group |
-| this\_security\_group\_name | The name of the security group |
-| this\_security\_group\_vpc\_id | The VPC ID |
-
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
+| <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.56.0 |

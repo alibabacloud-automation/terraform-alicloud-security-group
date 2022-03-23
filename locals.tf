@@ -8,7 +8,8 @@ locals {
   this_sg_id = var.existing_group_id != "" ? var.existing_group_id : concat(alicloud_security_group.this.*.id, [""])[0]
 
   # Whether to create ingress and egress rules
-  create_rules = var.existing_group_id != "" || var.create ? true : false
+  create_rules = var.create
 }
 
-resource "random_uuid" "this" {}
+resource "random_uuid" "this" {
+}

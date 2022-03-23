@@ -1,11 +1,11 @@
 // Create a new Security Group Resource for Module
 resource "alicloud_security_group" "this" {
-  count               = var.existing_group_id != "" ? 0 : var.create ? 1 : 0
+  count               = var.create ? 1 : 0
   name                = local.group_name
   vpc_id              = var.vpc_id
   description         = local.description
-  tags                = var.tags
   security_group_type = var.security_group_type
+  tags                = var.tags
 }
 
 ###################################
@@ -23,6 +23,7 @@ locals {
     ]
   )
 }
+
 resource "alicloud_security_group_rule" "ingress_rules" {
   count             = local.create_rules ? length(local.ingress_rules) : 0
   security_group_id = local.this_sg_id
@@ -34,21 +35,6 @@ resource "alicloud_security_group_rule" "ingress_rules" {
   cidr_ip     = lookup(local.ingress_rules[count.index], "cidr_block", )
   priority    = var.priority_for_ingress_rules > 0 ? var.priority_for_ingress_rules : var.default_ingress_priority
   description = var.rules[lookup(local.ingress_rules[count.index], "rule", )][3]
-}
-##########################
-# (Deprecated From v2.1.0) Ingress - Maps of rules and each item with cidr_block.
-##########################
-resource "alicloud_security_group_rule" "ingress_with_cidr_block" {
-  count             = local.create_rules ? length(var.ingress_with_cidr_block) : 0
-  security_group_id = local.this_sg_id
-
-  type        = "ingress"
-  ip_protocol = lookup(var.ingress_with_cidr_block[count.index], "protocol", var.rules[lookup(var.ingress_with_cidr_block[count.index], "rule", "_")][2], )
-  nic_type    = "intranet"
-  port_range  = "${lookup(var.ingress_with_cidr_block[count.index], "from_port", var.rules[lookup(var.ingress_with_cidr_block[count.index], "rule", "_")][0], )}/${lookup(var.ingress_with_cidr_block[count.index], "to_port", var.rules[lookup(var.ingress_with_cidr_block[count.index], "rule", "_")][1], )}"
-  cidr_ip     = lookup(var.ingress_with_cidr_block[count.index], "cidr_block", split(",", lookup(var.ingress_with_cidr_block[count.index], "cidr_blocks", ""))[0])
-  priority    = lookup(var.ingress_with_cidr_block[count.index], "priority", var.default_ingress_priority)
-  description = lookup(var.ingress_with_cidr_block[count.index], "description", "Ingress Rule")
 }
 
 ##########################
@@ -70,6 +56,7 @@ locals {
     ]
   )
 }
+
 resource "alicloud_security_group_rule" "ingress_with_cidr_blocks" {
   count             = local.create_rules ? length(local.ingress_with_cidr_blocks) : 0
   security_group_id = local.this_sg_id
@@ -81,6 +68,22 @@ resource "alicloud_security_group_rule" "ingress_with_cidr_blocks" {
   cidr_ip     = lookup(local.ingress_with_cidr_blocks[count.index], "cidr_block", )
   priority    = lookup(local.ingress_with_cidr_blocks[count.index], "priority", )
   description = lookup(local.ingress_with_cidr_blocks[count.index], "description", )
+}
+
+##########################
+# (Deprecated From v2.1.0) Ingress - Maps of rules and each item with cidr_block.
+##########################
+resource "alicloud_security_group_rule" "ingress_with_cidr_block" {
+  count             = local.create_rules ? length(var.ingress_with_cidr_block) : 0
+  security_group_id = local.this_sg_id
+
+  type        = "ingress"
+  ip_protocol = lookup(var.ingress_with_cidr_block[count.index], "protocol", var.rules[lookup(var.ingress_with_cidr_block[count.index], "rule", "_")][2], )
+  nic_type    = "intranet"
+  port_range  = "${lookup(var.ingress_with_cidr_block[count.index], "from_port", var.rules[lookup(var.ingress_with_cidr_block[count.index], "rule", "_")][0], )}/${lookup(var.ingress_with_cidr_block[count.index], "to_port", var.rules[lookup(var.ingress_with_cidr_block[count.index], "rule", "_")][1], )}"
+  cidr_ip     = lookup(var.ingress_with_cidr_block[count.index], "cidr_block", split(",", lookup(var.ingress_with_cidr_block[count.index], "cidr_blocks", ""))[0])
+  priority    = lookup(var.ingress_with_cidr_block[count.index], "priority", var.default_ingress_priority)
+  description = lookup(var.ingress_with_cidr_block[count.index], "description", "Ingress Rule")
 }
 
 ##########################
@@ -108,6 +111,7 @@ locals {
     ]
   )
 }
+
 resource "alicloud_security_group_rule" "ingress_with_cidr_blocks_and_ports" {
   count             = local.create_rules ? length(local.ingress_with_cidr_blocks_and_ports) : 0
   security_group_id = local.this_sg_id
@@ -138,6 +142,7 @@ locals {
     ]
   )
 }
+
 resource "alicloud_security_group_rule" "ingress_with_source_security_group_id" {
   count             = local.create_rules ? length(local.ingress_with_source_security_group_id) : 0
   security_group_id = local.this_sg_id
@@ -166,6 +171,7 @@ locals {
     ]
   )
 }
+
 resource "alicloud_security_group_rule" "egress_rules" {
   count             = local.create_rules ? length(local.egress_rules) : 0
   security_group_id = local.this_sg_id
@@ -177,21 +183,6 @@ resource "alicloud_security_group_rule" "egress_rules" {
   cidr_ip     = lookup(local.egress_rules[count.index], "cidr_block", )
   priority    = var.priority_for_egress_rules > 0 ? var.priority_for_egress_rules : var.default_egress_priority
   description = var.rules[lookup(local.egress_rules[count.index], "rule", )][3]
-}
-##########################
-# (Deprecated From v2.1.0) Egress - Maps of rules and each item with cidr_block
-##########################
-resource "alicloud_security_group_rule" "egress_with_cidr_block" {
-  count             = local.create_rules ? length(var.egress_with_cidr_block) : 0
-  security_group_id = local.this_sg_id
-
-  type        = "egress"
-  ip_protocol = lookup(var.egress_with_cidr_block[count.index], "protocol", var.rules[lookup(var.egress_with_cidr_block[count.index], "rule", "_")][2], )
-  nic_type    = "intranet"
-  port_range  = "${lookup(var.egress_with_cidr_block[count.index], "from_port", var.rules[lookup(var.egress_with_cidr_block[count.index], "rule", "_")][0], )}/${lookup(var.egress_with_cidr_block[count.index], "to_port", var.rules[lookup(var.egress_with_cidr_block[count.index], "rule", "_")][1], )}"
-  cidr_ip     = lookup(var.egress_with_cidr_block[count.index], "cidr_block", split(",", lookup(var.egress_with_cidr_block[count.index], "cidr_blocks", ""))[0])
-  priority    = lookup(var.egress_with_cidr_block[count.index], "priority", var.default_egress_priority)
-  description = lookup(var.egress_with_cidr_block[count.index], "description", "Egress Rule")
 }
 
 ##########################
@@ -213,6 +204,7 @@ locals {
     ]
   )
 }
+
 resource "alicloud_security_group_rule" "egress_with_cidr_blocks" {
   count             = local.create_rules ? length(local.egress_with_cidr_blocks) : 0
   security_group_id = local.this_sg_id
@@ -224,6 +216,22 @@ resource "alicloud_security_group_rule" "egress_with_cidr_blocks" {
   cidr_ip     = lookup(local.egress_with_cidr_blocks[count.index], "cidr_block", )
   priority    = lookup(local.egress_with_cidr_blocks[count.index], "priority", )
   description = lookup(local.egress_with_cidr_blocks[count.index], "description", )
+}
+
+##########################
+# (Deprecated From v2.1.0) Egress - Maps of rules and each item with cidr_block
+##########################
+resource "alicloud_security_group_rule" "egress_with_cidr_block" {
+  count             = local.create_rules ? length(var.egress_with_cidr_block) : 0
+  security_group_id = local.this_sg_id
+
+  type        = "egress"
+  ip_protocol = lookup(var.egress_with_cidr_block[count.index], "protocol", var.rules[lookup(var.egress_with_cidr_block[count.index], "rule", "_")][2], )
+  nic_type    = "intranet"
+  port_range  = "${lookup(var.egress_with_cidr_block[count.index], "from_port", var.rules[lookup(var.egress_with_cidr_block[count.index], "rule", "_")][0], )}/${lookup(var.egress_with_cidr_block[count.index], "to_port", var.rules[lookup(var.egress_with_cidr_block[count.index], "rule", "_")][1], )}"
+  cidr_ip     = lookup(var.egress_with_cidr_block[count.index], "cidr_block", split(",", lookup(var.egress_with_cidr_block[count.index], "cidr_blocks", ""))[0])
+  priority    = lookup(var.egress_with_cidr_block[count.index], "priority", var.default_egress_priority)
+  description = lookup(var.egress_with_cidr_block[count.index], "description", "Egress Rule")
 }
 
 ##########################
@@ -251,6 +259,7 @@ locals {
     ]
   )
 }
+
 resource "alicloud_security_group_rule" "egress_with_cidr_blocks_and_ports" {
   count             = local.create_rules ? length(local.egress_with_cidr_blocks_and_ports) : 0
   security_group_id = local.this_sg_id
@@ -281,6 +290,7 @@ locals {
     ]
   )
 }
+
 resource "alicloud_security_group_rule" "egress_with_source_security_group_id" {
   count             = local.create_rules ? length(local.egress_with_source_security_group_id) : 0
   security_group_id = local.this_sg_id

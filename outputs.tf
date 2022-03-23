@@ -1,5 +1,4 @@
 // Output the ID of the new VPC and Security Group created
-
 output "this_security_group_id" {
   description = "The ID of the security group"
   value       = local.this_sg_id
