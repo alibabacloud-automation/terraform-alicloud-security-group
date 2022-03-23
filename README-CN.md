@@ -218,7 +218,7 @@ module "vote_service_sg" {
 ```
 
 ## 注意事项
-本Module从版本v2.4.0开始已经移除掉如下的 provider 的显示设置：
+本Module从版本v2.4.0开始已经移除掉如下的 provider 的显式设置：
 
 ```hcl
 provider "alicloud" {
@@ -249,7 +249,7 @@ module "web_server_sg" {
 }
 ```
 
-如果你想对正在使用中的Module升级到 2.4.0 或者更高的版本，那么你可以在模板中显示定义一个系统过Region的provider：
+如果你想对正在使用中的Module升级到 2.4.0 或者更高的版本，那么你可以在模板中显式定义一个相同过Region的provider：
 ```hcl
 provider "alicloud" {
   region  = "cn-hangzhou"
@@ -266,7 +266,7 @@ module "web_server_sg" {
   // ...
 }
 ```
-或者，如果你是多Region部署，你可以利用 `alias` 定义多个 provider，并在Module中显示指定这个provider：
+或者，如果你是多Region部署，你可以利用 `alias` 定义多个 provider，并在Module中显式指定这个provider：
 
 ```hcl
 provider "alicloud" {
@@ -313,7 +313,7 @@ module "web_server_sg" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
 | <a name="requirement_alicloud"></a> [alicloud](#requirement\_alicloud) | >= 1.56.0 |
 
 提交问题
@@ -331,4 +331,3 @@ Created and maintained by Alibaba Cloud Terraform Team(terraform@alibabacloud.co
 * [Terraform-Provider-Alicloud Github](https://github.com/terraform-providers/terraform-provider-alicloud)
 * [Terraform-Provider-Alicloud Release](https://releases.hashicorp.com/terraform-provider-alicloud/)
 * [Terraform-Provider-Alicloud Docs](https://www.terraform.io/docs/providers/alicloud/index.html)
-
