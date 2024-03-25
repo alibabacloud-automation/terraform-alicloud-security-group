@@ -19,7 +19,7 @@ data "alicloud_vpcs" "default" {
 }
 
 data "alicloud_security_groups" "default" {
-  name_regex = "default"
+  name_regex = "default-NODELETING"
   vpc_id     = data.alicloud_vpcs.default.ids.0
 }
 ###########################
