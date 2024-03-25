@@ -24,5 +24,6 @@ module "enterprise_sg" {
   region              = var.region
   vpc_id              = data.alicloud_vpcs.default.ids.0
   security_group_type = "enterprise"
+  description         = "enterprise security group"
 }
 
