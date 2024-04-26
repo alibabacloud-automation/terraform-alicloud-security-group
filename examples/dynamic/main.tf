@@ -18,9 +18,8 @@ data "alicloud_vpcs" "default" {
   is_default = true
 }
 
-data "alicloud_security_groups" "default" {
-  name_regex = "default-NODELETING"
-  vpc_id     = data.alicloud_vpcs.default.ids.0
+resource "alicloud_security_group" "default" {
+  vpc_id = data.alicloud_vpcs.default.ids.0
 }
 ###########################
 # Security groups examples
@@ -43,7 +42,7 @@ module "http_sg" {
   ingress_with_source_security_group_id = [
     {
       rule                     = "https-443-tcp"
-      source_security_group_id = data.alicloud_security_groups.default.ids.0
+      source_security_group_id = alicloud_security_group.default.id
     },
   ]
 }
