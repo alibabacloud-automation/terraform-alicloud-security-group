@@ -18,9 +18,8 @@ data "alicloud_vpcs" "default" {
   is_default = true
 }
 
-data "alicloud_security_groups" "default" {
-  name_regex = "default-NODELETING"
-  vpc_id     = data.alicloud_vpcs.default.ids.0
+resource "alicloud_security_group" "default" {
+  vpc_id = data.alicloud_vpcs.default.ids.0
 }
 
 ########################################################
@@ -31,7 +30,7 @@ module "complete_sg_using_existing" {
   profile = var.profile
   region  = var.region
 
-  existing_group_id = data.alicloud_security_groups.default.ids.0
+  existing_group_id = alicloud_security_group.default.id
 
   create      = false
   name        = "complete-sg"
@@ -46,7 +45,7 @@ module "http_sg_using_existing" {
   profile = var.profile
   region  = var.region
 
-  existing_group_id = data.alicloud_security_groups.default.ids.0
+  existing_group_id = alicloud_security_group.default.id
 
   create      = false
   name        = "http-sg"
