@@ -75,6 +75,16 @@ variable "resource_group_id" {
   default     = null
 }
 
+
+##########
+# Security group rules
+##########
+variable "create_rules" {
+  description = "Whether to create ingress and egress rules"
+  type        = bool
+  default     = true
+}
+
 ##########
 # Ingress
 ##########
