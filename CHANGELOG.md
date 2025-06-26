@@ -1,4 +1,8 @@
 ## 2.5.0 (Unreleased)
+## 2.4.1 (June 26, 2025)
+
+- fix: Add variable create_rules for security_group_rules [GH-42](https://github.com/alibabacloud-automation/terraform-alicloud-security-group/pull/42)
+
 ## 2.4.0 (August 29, 2021)
 
 IMPROVEMENTS:
