@@ -1,7 +1,7 @@
 // Create a new Security Group Resource for Module
 resource "alicloud_security_group" "this" {
   count               = var.create ? 1 : 0
-  name                = local.group_name
+  security_group_name = local.group_name
   vpc_id              = var.vpc_id
   description         = local.description
   security_group_type = var.security_group_type
@@ -26,7 +26,7 @@ locals {
 }
 
 resource "alicloud_security_group_rule" "ingress_rules" {
-  count             = local.create_rules ? length(local.ingress_rules) : 0
+  count             = var.create_rules ? length(local.ingress_rules) : 0
   security_group_id = local.this_sg_id
 
   type        = "ingress"
@@ -59,7 +59,7 @@ locals {
 }
 
 resource "alicloud_security_group_rule" "ingress_with_cidr_blocks" {
-  count             = local.create_rules ? length(local.ingress_with_cidr_blocks) : 0
+  count             = var.create_rules ? length(local.ingress_with_cidr_blocks) : 0
   security_group_id = local.this_sg_id
 
   type        = "ingress"
@@ -75,7 +75,7 @@ resource "alicloud_security_group_rule" "ingress_with_cidr_blocks" {
 # (Deprecated From v2.1.0) Ingress - Maps of rules and each item with cidr_block.
 ##########################
 resource "alicloud_security_group_rule" "ingress_with_cidr_block" {
-  count             = local.create_rules ? length(var.ingress_with_cidr_block) : 0
+  count             = var.create_rules ? length(var.ingress_with_cidr_block) : 0
   security_group_id = local.this_sg_id
 
   type        = "ingress"
@@ -114,7 +114,7 @@ locals {
 }
 
 resource "alicloud_security_group_rule" "ingress_with_cidr_blocks_and_ports" {
-  count             = local.create_rules ? length(local.ingress_with_cidr_blocks_and_ports) : 0
+  count             = var.create_rules ? length(local.ingress_with_cidr_blocks_and_ports) : 0
   security_group_id = local.this_sg_id
 
   type        = "ingress"
@@ -145,7 +145,7 @@ locals {
 }
 
 resource "alicloud_security_group_rule" "ingress_with_source_security_group_id" {
-  count             = local.create_rules ? length(local.ingress_with_source_security_group_id) : 0
+  count             = var.create_rules ? length(local.ingress_with_source_security_group_id) : 0
   security_group_id = local.this_sg_id
 
   type                     = "ingress"
@@ -174,7 +174,7 @@ locals {
 }
 
 resource "alicloud_security_group_rule" "egress_rules" {
-  count             = local.create_rules ? length(local.egress_rules) : 0
+  count             = var.create_rules ? length(local.egress_rules) : 0
   security_group_id = local.this_sg_id
 
   type        = "egress"
@@ -207,7 +207,7 @@ locals {
 }
 
 resource "alicloud_security_group_rule" "egress_with_cidr_blocks" {
-  count             = local.create_rules ? length(local.egress_with_cidr_blocks) : 0
+  count             = var.create_rules ? length(local.egress_with_cidr_blocks) : 0
   security_group_id = local.this_sg_id
 
   type        = "egress"
@@ -223,7 +223,7 @@ resource "alicloud_security_group_rule" "egress_with_cidr_blocks" {
 # (Deprecated From v2.1.0) Egress - Maps of rules and each item with cidr_block
 ##########################
 resource "alicloud_security_group_rule" "egress_with_cidr_block" {
-  count             = local.create_rules ? length(var.egress_with_cidr_block) : 0
+  count             = var.create_rules ? length(var.egress_with_cidr_block) : 0
   security_group_id = local.this_sg_id
 
   type        = "egress"
@@ -262,7 +262,7 @@ locals {
 }
 
 resource "alicloud_security_group_rule" "egress_with_cidr_blocks_and_ports" {
-  count             = local.create_rules ? length(local.egress_with_cidr_blocks_and_ports) : 0
+  count             = var.create_rules ? length(local.egress_with_cidr_blocks_and_ports) : 0
   security_group_id = local.this_sg_id
 
   type        = "egress"
@@ -293,7 +293,7 @@ locals {
 }
 
 resource "alicloud_security_group_rule" "egress_with_source_security_group_id" {
-  count             = local.create_rules ? length(local.egress_with_source_security_group_id) : 0
+  count             = var.create_rules ? length(local.egress_with_source_security_group_id) : 0
   security_group_id = local.this_sg_id
 
   type                     = "egress"

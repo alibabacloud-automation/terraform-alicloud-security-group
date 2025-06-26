@@ -11,10 +11,10 @@ output "this_security_group_vpc_id" {
 
 output "this_security_group_name" {
   description = "The name of the security group"
-  value       = concat(alicloud_security_group.this.*.name, [""])[0]
+  value       = alicloud_security_group.this.*.security_group_name
 }
 
 output "this_security_group_description" {
   description = "The description of the security group"
-  value       = concat(alicloud_security_group.this.*.description, [""])[0]
+  value       = alicloud_security_group.this.*.description
 }

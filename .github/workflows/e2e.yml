@@ -106,7 +106,7 @@ jobs:
           
   e2e-check:
     # if: github.event.review.state == 'approved' || github.event.review.body == 'approved'
-    needs: [terraform-fmt, terraform-validate, tflint]
+    needs: [terraform-fmt, terraform-validate]
     runs-on: ubuntu-latest
     name: 'e2e check'
     steps:
