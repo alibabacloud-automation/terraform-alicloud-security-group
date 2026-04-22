@@ -1,13 +1,5 @@
-variable "profile" {
-  default = "default"
-}
-variable "region" {
-  default = "cn-hangzhou"
-}
-
 provider "alicloud" {
-  region  = var.region
-  profile = var.profile
+  region = "cn-hangzhou"
 }
 
 #############################################################
@@ -19,20 +11,18 @@ data "alicloud_vpcs" "default" {
 }
 
 resource "alicloud_security_group" "default" {
-  vpc_id = data.alicloud_vpcs.default.ids.0
+  vpc_id = data.alicloud_vpcs.default.ids[0]
 }
 
 ###########################
 # Security groups examples
 ###########################
 module "http_sg" {
-  source  = "../../modules/https-443"
-  profile = "Your-Profile-Name"
-  region  = var.region
+  source = "../../modules/https-443"
 
   name        = "computed-http-sg"
   description = "Security group with HTTP port open for everyone, and HTTPS open just for the default security group"
-  vpc_id      = data.alicloud_vpcs.default.ids.0
+  vpc_id      = data.alicloud_vpcs.default.ids[0]
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
 
@@ -45,13 +35,11 @@ module "http_sg" {
 }
 
 module "mysql_sg" {
-  source  = "../../modules/mysql"
-  profile = "Your-Profile-Name"
-  region  = var.region
+  source = "../../modules/mysql"
 
   name        = "computed-mysql-sg"
   description = "Security group with MySQL/Aurora port open for HTTP security group created above (computed)"
-  vpc_id      = data.alicloud_vpcs.default.ids.0
+  vpc_id      = data.alicloud_vpcs.default.ids[0]
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
 
