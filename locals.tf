@@ -5,7 +5,7 @@ locals {
   description  = var.group_description != "" ? var.group_description : var.description
 
   # Get ID of created Security Group
-  this_sg_id = var.existing_group_id != "" ? var.existing_group_id : concat(alicloud_security_group.this.*.id, [""])[0]
+  this_sg_id = var.existing_group_id != "" ? var.existing_group_id : concat(alicloud_security_group.this[*].id, [""])[0]
 }
 
 resource "random_uuid" "this" {

@@ -3,10 +3,11 @@ data "alicloud_zones" "default" {
 
 module "vpc" {
   source             = "alibaba/vpc/alicloud"
+  version            = "2.0.0"
   create             = true
   vpc_cidr           = "172.16.0.0/16"
   vswitch_cidrs      = ["172.16.0.0/21"]
-  availability_zones = [data.alicloud_zones.default.zones.0.id]
+  availability_zones = [data.alicloud_zones.default.zones[0].id]
 }
 
 module "security_group" {

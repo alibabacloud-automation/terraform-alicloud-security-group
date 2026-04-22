@@ -1,16 +1,12 @@
 module "sg" {
-  source                  = "../../"
-  region                  = var.region
-  profile                 = var.profile
-  shared_credentials_file = var.shared_credentials_file
-  skip_region_validation  = var.skip_region_validation
-  create                  = var.create
-  vpc_id                  = var.vpc_id
-  name                    = var.name
-  description             = var.description
-  existing_group_id       = var.existing_group_id
-  tags                    = var.tags
-  security_group_type     = var.security_group_type
+  source              = "../../"
+  create              = var.create
+  vpc_id              = var.vpc_id
+  name                = var.name
+  description         = var.description
+  existing_group_id   = var.existing_group_id
+  tags                = var.tags
+  security_group_type = var.security_group_type
 
 
   ##########

@@ -2,28 +2,7 @@
 # Provider
 #################
 
-variable "region" {
-  description = "The region used to launch this module resources."
-  type        = string
-  default     = ""
-}
 
-variable "profile" {
-  description = "The profile name as set in the shared credentials file. If not set, it will be sourced from the ALICLOUD_PROFILE environment variable."
-  type        = string
-  default     = ""
-}
-variable "shared_credentials_file" {
-  description = "This is the path to the shared credentials file. If this is not set and a profile is specified, $HOME/.aliyun/config.json will be used."
-  type        = string
-  default     = ""
-}
-
-variable "skip_region_validation" {
-  description = "Skip static validation of region ID. Used by users of alternative AlibabaCloud-like APIs or users w/ access to regions that are not public (yet)."
-  type        = bool
-  default     = false
-}
 
 #################
 # Security group
@@ -75,6 +54,12 @@ variable "security_group_type" {
 # Ingress
 ##########
 
+variable "auto_ingress_rules" {
+  description = "List of ingress rules to add automatically"
+  type        = list(string)
+  default     = ["openvpn-udp", "openvpn-tcp", "openvpn-https-tcp"]
+}
+
 variable "ingress_rules" {
   description = "List of ingress rules to create by name"
   type        = list(string)
@@ -103,11 +88,6 @@ variable "ingress_with_cidr_blocks_and_ports" {
   type        = list(map(string))
   default     = []
 }
-variable "ingress_ports" {
-  description = "The port list used on `ingress_with_cidr_blocks_and_ports` ports rules."
-  type        = list(number)
-  default     = []
-}
 
 variable "ingress_cidr_blocks" {
   description = "The IPv4 CIDR ranges list to use on ingress cidrs rules."
@@ -124,6 +104,12 @@ variable "default_ingress_priority" {
 #########
 # Egress
 #########
+variable "auto_egress_rules" {
+  description = "List of egress rules to add automatically"
+  type        = list(string)
+  default     = ["all-all"]
+}
+
 variable "egress_rules" {
   description = "List of egress rules to create by name"
   type        = list(string)
@@ -152,11 +138,6 @@ variable "egress_with_cidr_blocks_and_ports" {
   type        = list(map(string))
   default     = []
 }
-variable "egress_ports" {
-  description = "The port list used on `egress_with_cidr_blocks_and_ports` ports rules."
-  type        = list(number)
-  default     = []
-}
 
 variable "egress_cidr_blocks" {
   description = "The IPv4 CIDR ranges list to use on egress cidrs rules."
@@ -170,70 +151,10 @@ variable "default_egress_priority" {
   default     = 50
 }
 
-# Deprecated variables
-variable "this_module_name" {
-  description = "(Deprecated) It has been deprecated from 2.0.0, and use `name` instead."
-  default     = ""
-}
-variable "vpc_name" {
-  description = "(Deprecated) It has been deprecated from 2.0.0."
-  default     = ""
-}
 
-variable "vpc_cidr" {
-  description = "(Deprecated) It has been deprecated from 2.0.0."
-  default     = ""
-}
-
-variable "group_id" {
-  description = "(Deprecated) It has been deprecated from 2.0.0, and use `existing_group_id` instead."
-  default     = ""
-}
-
-variable "group_name" {
-  description = "(Deprecated) It has been deprecated from 2.0.0 and use 'name' instead."
-  default     = ""
-}
-
-variable "group_description" {
-  description = "(Deprecated) It has been deprecated from 2.0.0 and use 'name' instead."
-  default     = ""
-}
-
-variable "protocol" {
-  description = "(Deprecated) It has been deprecated from 2.0.0, and use `protocol_for_ingress_with_ports` and `protocol_for_egress_with_ports` instead."
-  type        = string
-  default     = "tcp"
-}
-
-variable "priority" {
-  description = "(Deprecated) It has been deprecated from 2.0.0, and use `default_ingress_priority` and `default_egress_priority` instead."
-  type        = number
-  default     = 1
-}
-variable "ingress_with_cidr_block" {
-  description = "(Deprecated) It has been deprecated from 2.1.0 and `ingress_with_cidr_blocks` instead. List of ingress rules to create where `cidr_block` is used. Each item's `cidr_block` can not be empty.  If some one item want to use `cidr_blocks`, the first one of `cidr_blocks` will be used."
-  type        = list(map(string))
-  default     = []
-}
 variable "ingress_with_ports" {
   description = "(Deprecated) It has been deprecated from 2.1.0 and `ingress_ports` instead. The port list to use on all ingress ports rules. `from` and `to` have the same port. Example: [80, 443] means 80/80 and 443/443."
   type        = list(number)
-  default     = []
-}
-variable "protocol_for_ingress_with_ports" {
-  description = "(Deprecated) It has been deprecated from 2.1.0 and `ingress_with_cidr_blocks_and_ports` instead. The default protocol where `ingress_with_ports` is used"
-  type        = string
-  default     = "tcp"
-}
-variable "priority_for_ingress_with_ports" {
-  description = "(Deprecated) It has been deprecated from 2.1.0 and `ingress_with_cidr_blocks_and_ports` instead. A priority is used when setting `ingress_with_ports`. Default to `default_ingress_priority`."
-  type        = number
-  default     = 1
-}
-variable "egress_with_cidr_block" {
-  description = "(Deprecated) It has been deprecated from 2.1.0 and `egress_with_cidr_blocks` instead. List of egress rules to create where `cidr_block` is used. Each item's `cidr_block` can not be empty. If some one item want to use `cidr_blocks`, the first one of `cidr_blocks` will be used."
-  type        = list(map(string))
   default     = []
 }
 
@@ -242,14 +163,4 @@ variable "egress_with_ports" {
   type        = list(number)
   default     = []
 }
-variable "protocol_for_egress_with_ports" {
-  description = "(Deprecated) It has been deprecated from 2.1.0 and `egress_with_cidr_blocks_and_ports` instead. A protocol where `egress_with_ports` is used."
-  type        = string
-  default     = "tcp"
-}
 
-variable "priority_for_egress_with_ports" {
-  description = "(Deprecated) It has been deprecated from 2.1.0 and `egress_with_cidr_blocks_and_ports` instead. A priority is used when setting `egress_with_ports`. Default to `default_egress_priority`."
-  type        = number
-  default     = 1
-}

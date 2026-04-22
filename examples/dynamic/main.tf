@@ -1,13 +1,5 @@
-variable "profile" {
-  default = "default"
-}
-variable "region" {
-  default = "cn-hangzhou"
-}
-
 provider "alicloud" {
-  region  = var.region
-  profile = var.profile
+  region = "cn-hangzhou"
 }
 
 #############################################################
@@ -19,7 +11,7 @@ data "alicloud_vpcs" "default" {
 }
 
 resource "alicloud_security_group" "default" {
-  vpc_id = data.alicloud_vpcs.default.ids.0
+  vpc_id = data.alicloud_vpcs.default.ids[0]
 }
 ###########################
 # Security groups examples
@@ -29,13 +21,11 @@ resource "alicloud_security_group" "default" {
 # HTTP
 #######
 module "http_sg" {
-  source  = "../../modules/http-80"
-  profile = var.profile
-  region  = var.region
+  source = "../../modules/http-80"
 
   name        = "dynamic-http-sg"
   description = "Security group with HTTP port open for everyone, and HTTPS open just for the default security group"
-  vpc_id      = data.alicloud_vpcs.default.ids.0
+  vpc_id      = data.alicloud_vpcs.default.ids[0]
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
 

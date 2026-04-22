@@ -1,4 +1,4 @@
-// Create a new Security Group Resource for Module
+# Create a new Security Group Resource for Module
 resource "alicloud_security_group" "this" {
   count               = var.create ? 1 : 0
   security_group_name = local.group_name
@@ -31,11 +31,11 @@ resource "alicloud_security_group_rule" "ingress_rules" {
 
   type        = "ingress"
   nic_type    = "intranet"
-  ip_protocol = var.rules[lookup(local.ingress_rules[count.index], "rule", )][2]
-  port_range  = "${var.rules[lookup(local.ingress_rules[count.index], "rule", )][0]}/${var.rules[lookup(local.ingress_rules[count.index], "rule", )][1]}"
-  cidr_ip     = lookup(local.ingress_rules[count.index], "cidr_block", )
+  ip_protocol = var.rules[local.ingress_rules[count.index]["rule"]][2]
+  port_range  = "${var.rules[local.ingress_rules[count.index]["rule"]][0]}/${var.rules[local.ingress_rules[count.index]["rule"]][1]}"
+  cidr_ip     = local.ingress_rules[count.index]["cidr_block"]
   priority    = var.priority_for_ingress_rules > 0 ? var.priority_for_ingress_rules : var.default_ingress_priority
-  description = var.rules[lookup(local.ingress_rules[count.index], "rule", )][3]
+  description = var.rules[local.ingress_rules[count.index]["rule"]][3]
 }
 
 ##########################
@@ -63,12 +63,12 @@ resource "alicloud_security_group_rule" "ingress_with_cidr_blocks" {
   security_group_id = local.this_sg_id
 
   type        = "ingress"
-  ip_protocol = lookup(local.ingress_with_cidr_blocks[count.index], "protocol", )
+  ip_protocol = local.ingress_with_cidr_blocks[count.index]["protocol"]
   nic_type    = "intranet"
-  port_range  = "${lookup(local.ingress_with_cidr_blocks[count.index], "from_port", )}/${lookup(local.ingress_with_cidr_blocks[count.index], "to_port", )}"
-  cidr_ip     = lookup(local.ingress_with_cidr_blocks[count.index], "cidr_block", )
-  priority    = lookup(local.ingress_with_cidr_blocks[count.index], "priority", )
-  description = lookup(local.ingress_with_cidr_blocks[count.index], "description", )
+  port_range  = "${local.ingress_with_cidr_blocks[count.index]["from_port"]}/${local.ingress_with_cidr_blocks[count.index]["to_port"]}"
+  cidr_ip     = local.ingress_with_cidr_blocks[count.index]["cidr_block"]
+  priority    = local.ingress_with_cidr_blocks[count.index]["priority"]
+  description = local.ingress_with_cidr_blocks[count.index]["description"]
 }
 
 ##########################
@@ -91,7 +91,7 @@ resource "alicloud_security_group_rule" "ingress_with_cidr_block" {
 # Ingress - Using a list of ports
 ##########################
 locals {
-  // For compatibility: ingress_with_ports, priority_for_ingress_with_ports and protocol_for_ingress_with_ports
+  # For compatibility: ingress_with_ports, priority_for_ingress_with_ports and protocol_for_ingress_with_ports
   ingress_ports            = length(var.ingress_ports) > 0 ? var.ingress_ports : var.ingress_with_ports
   default_ingress_priority = var.priority_for_ingress_with_ports > 0 ? var.priority_for_ingress_with_ports : var.default_ingress_priority
 
@@ -118,12 +118,12 @@ resource "alicloud_security_group_rule" "ingress_with_cidr_blocks_and_ports" {
   security_group_id = local.this_sg_id
 
   type        = "ingress"
-  ip_protocol = lookup(local.ingress_with_cidr_blocks_and_ports[count.index], "protocol", )
+  ip_protocol = local.ingress_with_cidr_blocks_and_ports[count.index]["protocol"]
   nic_type    = "intranet"
-  port_range  = "${lookup(local.ingress_with_cidr_blocks_and_ports[count.index], "from_port", )}/${lookup(local.ingress_with_cidr_blocks_and_ports[count.index], "to_port", )}"
-  cidr_ip     = lookup(local.ingress_with_cidr_blocks_and_ports[count.index], "cidr_block", )
-  priority    = lookup(local.ingress_with_cidr_blocks_and_ports[count.index], "priority", )
-  description = lookup(local.ingress_with_cidr_blocks_and_ports[count.index], "description", )
+  port_range  = "${local.ingress_with_cidr_blocks_and_ports[count.index]["from_port"]}/${local.ingress_with_cidr_blocks_and_ports[count.index]["to_port"]}"
+  cidr_ip     = local.ingress_with_cidr_blocks_and_ports[count.index]["cidr_block"]
+  priority    = local.ingress_with_cidr_blocks_and_ports[count.index]["priority"]
+  description = local.ingress_with_cidr_blocks_and_ports[count.index]["description"]
 }
 
 ##########################
@@ -149,12 +149,12 @@ resource "alicloud_security_group_rule" "ingress_with_source_security_group_id" 
   security_group_id = local.this_sg_id
 
   type                     = "ingress"
-  ip_protocol              = lookup(local.ingress_with_source_security_group_id[count.index], "protocol", )
+  ip_protocol              = local.ingress_with_source_security_group_id[count.index]["protocol"]
   nic_type                 = "intranet"
-  port_range               = "${lookup(local.ingress_with_source_security_group_id[count.index], "from_port", )}/${lookup(local.ingress_with_source_security_group_id[count.index], "to_port", )}"
-  source_security_group_id = lookup(local.ingress_with_source_security_group_id[count.index], "source_security_group_id", )
-  priority                 = lookup(local.ingress_with_source_security_group_id[count.index], "priority", )
-  description              = lookup(local.ingress_with_source_security_group_id[count.index], "description", )
+  port_range               = "${local.ingress_with_source_security_group_id[count.index]["from_port"]}/${local.ingress_with_source_security_group_id[count.index]["to_port"]}"
+  source_security_group_id = local.ingress_with_source_security_group_id[count.index]["source_security_group_id"]
+  priority                 = local.ingress_with_source_security_group_id[count.index]["priority"]
+  description              = local.ingress_with_source_security_group_id[count.index]["description"]
 }
 
 ###################################
@@ -179,11 +179,11 @@ resource "alicloud_security_group_rule" "egress_rules" {
 
   type        = "egress"
   nic_type    = "intranet"
-  ip_protocol = var.rules[lookup(local.egress_rules[count.index], "rule", )][2]
-  port_range  = "${var.rules[lookup(local.egress_rules[count.index], "rule", )][0]}/${var.rules[lookup(local.egress_rules[count.index], "rule", )][1]}"
-  cidr_ip     = lookup(local.egress_rules[count.index], "cidr_block", )
+  ip_protocol = var.rules[local.egress_rules[count.index]["rule"]][2]
+  port_range  = "${var.rules[local.egress_rules[count.index]["rule"]][0]}/${var.rules[local.egress_rules[count.index]["rule"]][1]}"
+  cidr_ip     = local.egress_rules[count.index]["cidr_block"]
   priority    = var.priority_for_egress_rules > 0 ? var.priority_for_egress_rules : var.default_egress_priority
-  description = var.rules[lookup(local.egress_rules[count.index], "rule", )][3]
+  description = var.rules[local.egress_rules[count.index]["rule"]][3]
 }
 
 ##########################
@@ -211,12 +211,12 @@ resource "alicloud_security_group_rule" "egress_with_cidr_blocks" {
   security_group_id = local.this_sg_id
 
   type        = "egress"
-  ip_protocol = lookup(local.egress_with_cidr_blocks[count.index], "protocol", )
+  ip_protocol = local.egress_with_cidr_blocks[count.index]["protocol"]
   nic_type    = "intranet"
-  port_range  = "${lookup(local.egress_with_cidr_blocks[count.index], "from_port", )}/${lookup(local.egress_with_cidr_blocks[count.index], "to_port", )}"
-  cidr_ip     = lookup(local.egress_with_cidr_blocks[count.index], "cidr_block", )
-  priority    = lookup(local.egress_with_cidr_blocks[count.index], "priority", )
-  description = lookup(local.egress_with_cidr_blocks[count.index], "description", )
+  port_range  = "${local.egress_with_cidr_blocks[count.index]["from_port"]}/${local.egress_with_cidr_blocks[count.index]["to_port"]}"
+  cidr_ip     = local.egress_with_cidr_blocks[count.index]["cidr_block"]
+  priority    = local.egress_with_cidr_blocks[count.index]["priority"]
+  description = local.egress_with_cidr_blocks[count.index]["description"]
 }
 
 ##########################
@@ -239,7 +239,7 @@ resource "alicloud_security_group_rule" "egress_with_cidr_block" {
 # Egress - Using a list of ports
 ##########################
 locals {
-  // For compatibility: ingress_with_ports, priority_for_ingress_with_ports and protocol_for_ingress_with_ports
+  # For compatibility: ingress_with_ports, priority_for_ingress_with_ports and protocol_for_ingress_with_ports
   egress_ports            = length(var.egress_ports) > 0 ? var.egress_ports : var.egress_with_ports
   default_egress_priority = var.priority_for_egress_with_ports > 0 ? var.priority_for_egress_with_ports : var.default_egress_priority
 
@@ -266,12 +266,12 @@ resource "alicloud_security_group_rule" "egress_with_cidr_blocks_and_ports" {
   security_group_id = local.this_sg_id
 
   type        = "egress"
-  ip_protocol = lookup(local.egress_with_cidr_blocks_and_ports[count.index], "protocol", )
+  ip_protocol = local.egress_with_cidr_blocks_and_ports[count.index]["protocol"]
   nic_type    = "intranet"
-  port_range  = "${lookup(local.egress_with_cidr_blocks_and_ports[count.index], "from_port", )}/${lookup(local.egress_with_cidr_blocks_and_ports[count.index], "to_port", )}"
-  cidr_ip     = lookup(local.egress_with_cidr_blocks_and_ports[count.index], "cidr_block", )
-  priority    = lookup(local.egress_with_cidr_blocks_and_ports[count.index], "priority", )
-  description = lookup(local.egress_with_cidr_blocks_and_ports[count.index], "description", )
+  port_range  = "${local.egress_with_cidr_blocks_and_ports[count.index]["from_port"]}/${local.egress_with_cidr_blocks_and_ports[count.index]["to_port"]}"
+  cidr_ip     = local.egress_with_cidr_blocks_and_ports[count.index]["cidr_block"]
+  priority    = local.egress_with_cidr_blocks_and_ports[count.index]["priority"]
+  description = local.egress_with_cidr_blocks_and_ports[count.index]["description"]
 }
 
 ##########################
@@ -297,10 +297,10 @@ resource "alicloud_security_group_rule" "egress_with_source_security_group_id" {
   security_group_id = local.this_sg_id
 
   type                     = "egress"
-  ip_protocol              = lookup(local.egress_with_source_security_group_id[count.index], "protocol", )
+  ip_protocol              = local.egress_with_source_security_group_id[count.index]["protocol"]
   nic_type                 = "intranet"
-  port_range               = "${lookup(local.egress_with_source_security_group_id[count.index], "from_port", )}/${lookup(local.egress_with_source_security_group_id[count.index], "to_port", )}"
+  port_range               = "${local.egress_with_source_security_group_id[count.index]["from_port"]}/${local.egress_with_source_security_group_id[count.index]["to_port"]}"
   source_security_group_id = local.egress_with_source_security_group_id[count.index]["source_security_group_id"]
-  priority                 = lookup(local.egress_with_source_security_group_id[count.index], "priority", )
-  description              = lookup(local.egress_with_source_security_group_id[count.index], "description", )
+  priority                 = local.egress_with_source_security_group_id[count.index]["priority"]
+  description              = local.egress_with_source_security_group_id[count.index]["description"]
 }
